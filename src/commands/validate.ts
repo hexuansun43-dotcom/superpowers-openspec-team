@@ -79,7 +79,7 @@ function validateProject(projectRoot: string): ValidationResult {
   };
 
   // Check all installed files for generatedBy markers and checksums
-  const dirsToCheck = ['.claude', '.cursor', '.codex', '.omc'];
+  const dirsToCheck = ['.claude', '.cursor', '.codex'];
   for (const dir of dirsToCheck) {
     const dirPath = path.join(projectRoot, dir);
     if (!fs.existsSync(dirPath)) continue;

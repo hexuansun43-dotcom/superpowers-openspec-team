@@ -60,11 +60,6 @@ export const TOOL_REGISTRY: Record<string, { name: string; skillsDir: string; de
     skillsDir: '',
     detectionPaths: ['GEMINI.md', 'gemini-extension.json'],
   },
-  omc: {
-    name: 'oh-my-claudecode',
-    skillsDir: '.claude/skills',
-    detectionPaths: ['.omc/', '.claude/plugins/oh-my-claudecode/'],
-  },
 };
 
 export const VERSION = '2.0.0';

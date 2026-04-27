@@ -69,16 +69,15 @@ export async function installFiles(
 }
 
 export function detectInstalledTools(projectRoot: string): string[] {
-  const candidates = ['claude-code', 'cursor', 'codex', 'gemini', 'omc'];
+  const candidates = ['claude-code', 'cursor', 'codex', 'gemini'];
   const detected: string[] = [];
 
   for (const tool of candidates) {
     const detectionPaths: Record<string, string[]> = {
-      'claude-code': ['.claude/', 'CLAUDE.md'],
+      'claude-code': ['.claude/', 'CLAUDE.md', '.omc/', '.claude/plugins/oh-my-claudecode/'],
       cursor: ['.cursor/', '.cursorrules'],
       codex: ['.codex/', 'AGENTS.md'],
       gemini: ['GEMINI.md'],
-      omc: ['.omc/', '.claude/plugins/'],
     };
 
     const paths = detectionPaths[tool] || [];

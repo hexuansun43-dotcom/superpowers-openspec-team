@@ -5,7 +5,6 @@ import { ClaudeCodeAdapter } from '../core/adapters/claude-code.js';
 import { CursorAdapter } from '../core/adapters/cursor.js';
 import { CodexAdapter } from '../core/adapters/codex.js';
 import { GeminiAdapter } from '../core/adapters/gemini.js';
-import { OmcAdapter } from '../core/adapters/omc.js';
 import { parseAllSkills } from '../core/schema/parser.js';
 import { computeChecksum } from '../utils/checksum.js';
 import { logger, formatJsonOutput } from '../utils/logger.js';
@@ -17,7 +16,6 @@ const ADAPTERS: ToolAdapter[] = [
   new CursorAdapter(),
   new CodexAdapter(),
   new GeminiAdapter(),
-  new OmcAdapter(),
 ];
 
 interface BundleManifest {

@@ -1,6 +1,6 @@
 # Superpowers + OpenSpec Team Skills
 
-面向 AI 编程助手的 CLI 驱动工作流技能库。一条命令即可将结构化交付流程安装到 Claude Code、Cursor、Codex、Gemini CLI 或 OMC。
+面向 AI 编程助手的 CLI 驱动工作流技能库。一条命令即可将结构化交付流程安装到 Claude Code（含 oh-my-claudecode）、Cursor、Codex 或 Gemini CLI。
 
 ## 快速开始
 
@@ -107,15 +107,14 @@ sot config --set backupEnabled=true
 
 ## 支持的工具
 
-内置 5 个适配器：
+内置 4 个适配器：
 
 | 适配器 | ID | 写入位置 |
 |--------|----|----------|
-| Claude Code | `claude-code` | `.claude/commands/`、`CLAUDE.md` |
+| Claude Code | `claude-code` | `.claude/commands/`、`CLAUDE.md`（同时检测 oh-my-claudecode） |
 | Cursor | `cursor` | `.cursor/rules/`、`AGENTS.md` |
 | Codex | `codex` | Codex home skills 目录 |
 | Gemini CLI | `gemini` | `GEMINI.md`、`gemini-extension.json` |
-| OMC | `omc` | `.omc/` |
 
 ## 项目记忆系统 (.superpowers-memory/)
 

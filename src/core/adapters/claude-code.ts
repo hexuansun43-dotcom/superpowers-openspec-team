@@ -6,7 +6,7 @@ export class ClaudeCodeAdapter extends BaseAdapter {
   readonly id = 'claude-code';
   readonly name = 'Claude Code';
   readonly skillsDir = '.claude/skills';
-  readonly detectionPaths = ['.claude/', 'CLAUDE.md'];
+  readonly detectionPaths = ['.claude/', 'CLAUDE.md', '.omc/', '.claude/plugins/oh-my-claudecode/'];
 
   generateSkill(skill: SkillDefinition, targetRoot: string): GeneratedFile[] {
     const files: GeneratedFile[] = [];

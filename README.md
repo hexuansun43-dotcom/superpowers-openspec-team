@@ -1,6 +1,6 @@
 # Superpowers + OpenSpec Team Skills
 
-CLI-driven workflow skills for AI coding agents. Install structured delivery processes into Claude Code, Cursor, Codex, Gemini CLI, or OMC with a single command.
+CLI-driven workflow skills for AI coding agents. Install structured delivery processes into Claude Code (including oh-my-claudecode), Cursor, Codex, or Gemini CLI with a single command.
 
 ## Quick Start
 
@@ -107,15 +107,14 @@ All commands support `--json` for machine-readable output and `--debug` for verb
 
 ## Supported Tools
 
-Five adapters are included:
+Four adapters are included:
 
 | Adapter | ID | Writes to |
 |---------|----|-----------|
-| Claude Code | `claude-code` | `.claude/commands/`, `CLAUDE.md` |
+| Claude Code | `claude-code` | `.claude/commands/`, `CLAUDE.md` (also detects oh-my-claudecode) |
 | Cursor | `cursor` | `.cursor/rules/`, `AGENTS.md` |
 | Codex | `codex` | Codex home skills directory |
 | Gemini CLI | `gemini` | `GEMINI.md`, `gemini-extension.json` |
-| OMC | `omc` | `.omc/` |
 
 ## Project Memory (.superpowers-memory/)
 

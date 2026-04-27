@@ -1,0 +1,226 @@
+{
+  "agents": [
+    {
+      "agent_id": "a3fb648d7f17a3ecb",
+      "agent_type": "security-fix",
+      "started_at": "2026-04-27T06:32:25.159Z",
+      "parent_mode": "none",
+      "status": "completed",
+      "completed_at": "2026-04-27T06:35:58.470Z",
+      "duration_ms": 213311
+    },
+    {
+      "agent_id": "a149718efcf60f214",
+      "agent_type": "core-types",
+      "started_at": "2026-04-27T06:32:25.197Z",
+      "parent_mode": "none",
+      "status": "completed",
+      "completed_at": "2026-04-27T06:35:40.932Z",
+      "duration_ms": 195735
+    },
+    {
+      "agent_id": "ac880b2aff40ff656",
+      "agent_type": "cli-entry",
+      "started_at": "2026-04-27T06:32:25.345Z",
+      "parent_mode": "none",
+      "status": "completed",
+      "completed_at": "2026-04-27T06:34:53.547Z",
+      "duration_ms": 148202
+    },
+    {
+      "agent_id": "af018ab25e37ee22d",
+      "agent_type": "cli-entry",
+      "started_at": "2026-04-27T06:34:55.273Z",
+      "parent_mode": "none",
+      "status": "running"
+    },
+    {
+      "agent_id": "aec50eff0c48e3268",
+      "agent_type": "core-types",
+      "started_at": "2026-04-27T06:35:41.358Z",
+      "parent_mode": "none",
+      "status": "completed",
+      "completed_at": "2026-04-27T06:37:01.478Z",
+      "duration_ms": 80120
+    },
+    {
+      "agent_id": "a33342e67f96625a5",
+      "agent_type": "security-fix",
+      "started_at": "2026-04-27T06:35:58.861Z",
+      "parent_mode": "none",
+      "status": "completed",
+      "completed_at": "2026-04-27T06:36:06.045Z",
+      "duration_ms": 7184
+    },
+    {
+      "agent_id": "a2c3069d9c974d0a4",
+      "agent_type": "security-fix",
+      "started_at": "2026-04-27T06:36:06.444Z",
+      "parent_mode": "none",
+      "status": "completed",
+      "completed_at": "2026-04-27T06:36:34.930Z",
+      "duration_ms": 28486
+    },
+    {
+      "agent_id": "ada3b55bc8adcb091",
+      "agent_type": "security-fix",
+      "started_at": "2026-04-27T06:36:35.357Z",
+      "parent_mode": "none",
+      "status": "running"
+    },
+    {
+      "agent_id": "ae3c20764657b6d34",
+      "agent_type": "core-types",
+      "started_at": "2026-04-27T06:37:01.855Z",
+      "parent_mode": "none",
+      "status": "running"
+    },
+    {
+      "agent_id": "a05a7bd8100a424a8",
+      "agent_type": "adapters",
+      "started_at": "2026-04-27T06:39:37.131Z",
+      "parent_mode": "none",
+      "status": "completed",
+      "completed_at": "2026-04-27T06:42:13.691Z",
+      "duration_ms": 156560
+    },
+    {
+      "agent_id": "ad659146ca036cef5",
+      "agent_type": "installer",
+      "started_at": "2026-04-27T06:39:37.220Z",
+      "parent_mode": "none",
+      "status": "completed",
+      "completed_at": "2026-04-27T06:43:47.115Z",
+      "duration_ms": 249895
+    },
+    {
+      "agent_id": "a18e44abc79597cca",
+      "agent_type": "memory-enhance",
+      "started_at": "2026-04-27T06:39:37.261Z",
+      "parent_mode": "none",
+      "status": "completed",
+      "completed_at": "2026-04-27T06:46:18.913Z",
+      "duration_ms": 401652
+    },
+    {
+      "agent_id": "a09415e24ac4060dc",
+      "agent_type": "adapters",
+      "started_at": "2026-04-27T06:42:37.327Z",
+      "parent_mode": "none",
+      "status": "running"
+    },
+    {
+      "agent_id": "ab5f0d21149ffb0ad",
+      "agent_type": "installer",
+      "started_at": "2026-04-27T06:43:47.510Z",
+      "parent_mode": "none",
+      "status": "completed",
+      "completed_at": "2026-04-27T06:43:54.183Z",
+      "duration_ms": 6673
+    },
+    {
+      "agent_id": "a592c1e6035464940",
+      "agent_type": "installer",
+      "started_at": "2026-04-27T06:44:08.622Z",
+      "parent_mode": "none",
+      "status": "running"
+    },
+    {
+      "agent_id": "afec727a82f9b922f",
+      "agent_type": "commands",
+      "started_at": "2026-04-27T06:44:39.656Z",
+      "parent_mode": "none",
+      "status": "completed",
+      "completed_at": "2026-04-27T06:50:29.759Z",
+      "duration_ms": 350103
+    },
+    {
+      "agent_id": "a3620f432767ea782",
+      "agent_type": "memory-enhance",
+      "started_at": "2026-04-27T06:46:19.309Z",
+      "parent_mode": "none",
+      "status": "running"
+    },
+    {
+      "agent_id": "a6ae62a5e23bafaeb",
+      "agent_type": "commands",
+      "started_at": "2026-04-27T06:50:30.185Z",
+      "parent_mode": "none",
+      "status": "completed",
+      "completed_at": "2026-04-27T06:50:42.901Z",
+      "duration_ms": 12716
+    },
+    {
+      "agent_id": "a531385431d19a78f",
+      "agent_type": "commands",
+      "started_at": "2026-04-27T06:50:43.391Z",
+      "parent_mode": "none",
+      "status": "completed",
+      "completed_at": "2026-04-27T06:50:46.132Z",
+      "duration_ms": 2741
+    },
+    {
+      "agent_id": "a4dc3b6d77e351c22",
+      "agent_type": "commands",
+      "started_at": "2026-04-27T06:50:46.546Z",
+      "parent_mode": "none",
+      "status": "running"
+    },
+    {
+      "agent_id": "a3303341f1ebbe0cd",
+      "agent_type": "e2e-docs",
+      "started_at": "2026-04-27T06:51:39.313Z",
+      "parent_mode": "none",
+      "status": "completed",
+      "completed_at": "2026-04-27T06:56:27.682Z",
+      "duration_ms": 288369
+    },
+    {
+      "agent_id": "a78f06a0c2fc44c1a",
+      "agent_type": "e2e-docs",
+      "started_at": "2026-04-27T06:56:28.126Z",
+      "parent_mode": "none",
+      "status": "completed",
+      "completed_at": "2026-04-27T06:56:44.265Z",
+      "duration_ms": 16139
+    },
+    {
+      "agent_id": "a69d81275f0d4e385",
+      "agent_type": "e2e-docs",
+      "started_at": "2026-04-27T06:56:44.685Z",
+      "parent_mode": "none",
+      "status": "completed",
+      "completed_at": "2026-04-27T06:56:48.152Z",
+      "duration_ms": 3467
+    },
+    {
+      "agent_id": "a1d32ff8ad34b6ac2",
+      "agent_type": "e2e-docs",
+      "started_at": "2026-04-27T06:56:48.562Z",
+      "parent_mode": "none",
+      "status": "completed",
+      "completed_at": "2026-04-27T06:56:53.846Z",
+      "duration_ms": 5284
+    },
+    {
+      "agent_id": "ac514f0abe3a35307",
+      "agent_type": "e2e-docs",
+      "started_at": "2026-04-27T06:56:54.255Z",
+      "parent_mode": "none",
+      "status": "running"
+    },
+    {
+      "agent_id": "a6a988b3f1245e88a",
+      "agent_type": "general-purpose",
+      "started_at": "2026-04-27T07:01:21.802Z",
+      "parent_mode": "none",
+      "status": "completed",
+      "completed_at": "2026-04-27T07:04:49.323Z",
+      "duration_ms": 207521
+    }
+  ],
+  "total_spawned": 24,
+  "total_completed": 18,
+  "total_failed": 0,
+  "last_updated": "2026-04-27T08:14:55.359Z"
+}
