@@ -60,6 +60,11 @@ export const TOOL_REGISTRY: Record<string, { name: string; skillsDir: string; de
     skillsDir: '',
     detectionPaths: ['GEMINI.md', 'gemini-extension.json'],
   },
+  omc: {
+    name: 'OMC (oh-my-claudecode)',
+    skillsDir: '.omc/skills',
+    detectionPaths: ['.omc/', '.omc/state/', '.omc/notepad.md'],
+  },
 };
 
-export const VERSION = '2.0.10';
+export const VERSION = '2.4.0';
