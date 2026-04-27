@@ -3,6 +3,11 @@
 .npm-cache/
 .tmp-verify/
 
+# OMC runtime state (only project-memory.json is tracked)
+.omc/notepad.md
+.omc/sessions/
+.omc/state/
+
 # Build outputs
 dist/
 *.tsbuildinfo
