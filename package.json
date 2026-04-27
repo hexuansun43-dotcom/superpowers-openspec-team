@@ -1,0 +1,66 @@
+{
+  "name": "superpowers-openspec-team",
+  "version": "2.0.0",
+  "description": "AI coding agent workflow skills with CLI-driven multi-tool adaptation",
+  "type": "module",
+  "bin": {
+    "sot": "./bin/sot.js"
+  },
+  "main": "./dist/cli/index.js",
+  "types": "./dist/cli/index.d.ts",
+  "files": [
+    "dist/",
+    "bin/",
+    "skills/",
+    "schemas/",
+    "templates/",
+    "scripts/"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "build:watch": "tsc --watch",
+    "build:check": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "lint": "eslint src/",
+    "prepublishOnly": "npm run build && npm run test"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "keywords": [
+    "ai",
+    "claude-code",
+    "cursor",
+    "codex",
+    "gemini",
+    "workflow",
+    "skills"
+  ],
+  "author": "SYZ-Coder",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SYZ-Coder/superpowers-openspec-team-skills.git"
+  },
+  "bugs": {
+    "url": "https://github.com/SYZ-Coder/superpowers-openspec-team-skills/issues"
+  },
+  "homepage": "https://github.com/SYZ-Coder/superpowers-openspec-team-skills#readme",
+  "dependencies": {
+    "commander": "^12.0.0",
+    "yaml": "^2.4.0",
+    "zod": "^3.22.0",
+    "chalk": "^5.3.0",
+    "ora": "^8.0.0",
+    "inquirer": "^9.2.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.4.0",
+    "vitest": "^1.6.0",
+    "@types/node": "^20.0.0",
+    "@types/inquirer": "^9.0.0",
+    "eslint": "^9.0.0",
+    "typescript-eslint": "^8.0.0"
+  }
+}

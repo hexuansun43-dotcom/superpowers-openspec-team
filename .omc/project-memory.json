@@ -1,0 +1,394 @@
+{
+  "version": "1.0.0",
+  "lastScanned": 1777256612484,
+  "projectRoot": "D:\\Code\\superpowers-openspec-team-skills",
+  "techStack": {
+    "languages": [],
+    "frameworks": [],
+    "packageManager": null,
+    "runtime": null
+  },
+  "build": {
+    "buildCommand": null,
+    "testCommand": null,
+    "lintCommand": null,
+    "devCommand": null,
+    "scripts": {}
+  },
+  "conventions": {
+    "namingStyle": null,
+    "importStyle": null,
+    "testPattern": null,
+    "fileOrganization": null
+  },
+  "structure": {
+    "isMonorepo": false,
+    "workspaces": [],
+    "mainDirectories": [
+      "docs",
+      "scripts"
+    ],
+    "gitBranches": {
+      "defaultBranch": "main",
+      "branchingStrategy": null
+    }
+  },
+  "customNotes": [],
+  "directoryMap": {
+    "dist": {
+      "path": "dist",
+      "purpose": "Distribution/build output",
+      "fileCount": 0,
+      "lastAccessed": 1777256612431,
+      "keyFiles": []
+    },
+    "docs": {
+      "path": "docs",
+      "purpose": "Documentation",
+      "fileCount": 8,
+      "lastAccessed": 1777256612432,
+      "keyFiles": [
+        "CROSS_PLATFORM_TESTING.cn.md",
+        "CROSS_PLATFORM_TESTING.md",
+        "enhancement-overview.cn.md",
+        "layered-adoption-model.cn.md",
+        "memory-enhancement-design.cn.md"
+      ]
+    },
+    "scripts": {
+      "path": "scripts",
+      "purpose": "Build/utility scripts",
+      "fileCount": 21,
+      "lastAccessed": 1777256612433,
+      "keyFiles": [
+        "build-dist.ps1",
+        "generate-superpowers-promotion-drafts.ps1",
+        "generate-superpowers-promotion-drafts.sh",
+        "install-claude-code.ps1",
+        "install-claude-code.sh"
+      ]
+    },
+    "templates": {
+      "path": "templates",
+      "purpose": null,
+      "fileCount": 0,
+      "lastAccessed": 1777256612434,
+      "keyFiles": []
+    },
+    "skills": {
+      "path": "skills",
+      "purpose": null,
+      "fileCount": 4,
+      "lastAccessed": 1777256612433,
+      "keyFiles": [
+        "INSTALL.cn.md",
+        "INSTALL.md",
+        "README.cn.md",
+        "README.md"
+      ]
+    }
+  },
+  "hotPaths": [
+    {
+      "path": "",
+      "accessCount": 26,
+      "lastAccessed": 1777272331312,
+      "type": "directory"
+    },
+    {
+      "path": "README.cn.md",
+      "accessCount": 11,
+      "lastAccessed": 1777272095749,
+      "type": "file"
+    },
+    {
+      "path": "README.md",
+      "accessCount": 10,
+      "lastAccessed": 1777272071847,
+      "type": "file"
+    },
+    {
+      "path": "scripts\\install-codex.sh",
+      "accessCount": 6,
+      "lastAccessed": 1777271670789,
+      "type": "file"
+    },
+    {
+      "path": "scripts\\install-claude-code.sh",
+      "accessCount": 6,
+      "lastAccessed": 1777271671367,
+      "type": "file"
+    },
+    {
+      "path": "docs\\enhancement-overview.cn.md",
+      "accessCount": 6,
+      "lastAccessed": 1777272193800,
+      "type": "file"
+    },
+    {
+      "path": "scripts\\install-cursor.sh",
+      "accessCount": 5,
+      "lastAccessed": 1777271671986,
+      "type": "file"
+    },
+    {
+      "path": "skills\\openspec-superpowers-workflow\\SKILL.md",
+      "accessCount": 4,
+      "lastAccessed": 1777270063741,
+      "type": "file"
+    },
+    {
+      "path": "templates\\superpowers-memory\\PROJECT_CONTEXT.md",
+      "accessCount": 4,
+      "lastAccessed": 1777272022500,
+      "type": "file"
+    },
+    {
+      "path": "skills\\superpowers-feature-workflow\\SKILL.md",
+      "accessCount": 4,
+      "lastAccessed": 1777272341982,
+      "type": "file"
+    },
+    {
+      "path": "C:\\Users\\KC\\.claude\\plugins\\marketplaces\\mempalace\\.claude-plugin\\hooks\\mempal-stop-hook.sh",
+      "accessCount": 3,
+      "lastAccessed": 1777257055711,
+      "type": "file"
+    },
+    {
+      "path": "skills\\superpowers-learning-workflow\\SKILL.md",
+      "accessCount": 3,
+      "lastAccessed": 1777258379928,
+      "type": "file"
+    },
+    {
+      "path": "skills\\openspec-feature-workflow\\SKILL.md",
+      "accessCount": 3,
+      "lastAccessed": 1777258380624,
+      "type": "file"
+    },
+    {
+      "path": "skills\\superpowers-openspec-execution-workflow\\SKILL.md",
+      "accessCount": 3,
+      "lastAccessed": 1777258380841,
+      "type": "file"
+    },
+    {
+      "path": "scripts\\common\\dependency-check.sh",
+      "accessCount": 3,
+      "lastAccessed": 1777258415444,
+      "type": "file"
+    },
+    {
+      "path": "scripts\\install-superpowers-memory.sh",
+      "accessCount": 3,
+      "lastAccessed": 1777258415536,
+      "type": "file"
+    },
+    {
+      "path": "skills\\openspec-superpowers-workflow\\workflow.yaml",
+      "accessCount": 3,
+      "lastAccessed": 1777270054521,
+      "type": "file"
+    },
+    {
+      "path": "templates\\superpowers-memory\\CURRENT_STATE.md",
+      "accessCount": 3,
+      "lastAccessed": 1777271993908,
+      "type": "file"
+    },
+    {
+      "path": "skills\\superpowers-feature-workflow\\workflow.yaml",
+      "accessCount": 3,
+      "lastAccessed": 1777272342045,
+      "type": "file"
+    },
+    {
+      "path": "C:\\Users\\KC\\.claude\\plugins\\marketplaces\\mempalace\\.claude-plugin\\hooks\\mempal-precompact-hook.sh",
+      "accessCount": 2,
+      "lastAccessed": 1777257056361,
+      "type": "file"
+    },
+    {
+      "path": "C:\\Users\\KC\\.claude\\plugins\\marketplaces\\mempalace\\hooks\\mempal_save_hook.sh",
+      "accessCount": 2,
+      "lastAccessed": 1777257078345,
+      "type": "file"
+    },
+    {
+      "path": "C:\\Users\\KC\\.claude\\plugins\\marketplaces\\mempalace\\hooks\\mempal_precompact_hook.sh",
+      "accessCount": 2,
+      "lastAccessed": 1777257079002,
+      "type": "file"
+    },
+    {
+      "path": "scripts\\install-superpowers-memory-integration.sh",
+      "accessCount": 2,
+      "lastAccessed": 1777257325618,
+      "type": "file"
+    },
+    {
+      "path": "scripts\\run-superpowers-memory-closeout.sh",
+      "accessCount": 2,
+      "lastAccessed": 1777257332748,
+      "type": "file"
+    },
+    {
+      "path": "scripts\\install-codex.ps1",
+      "accessCount": 2,
+      "lastAccessed": 1777257407714,
+      "type": "file"
+    },
+    {
+      "path": "scripts\\install-claude-code.ps1",
+      "accessCount": 2,
+      "lastAccessed": 1777257407750,
+      "type": "file"
+    },
+    {
+      "path": "skills\\superpowers-openspec-execution-workflow\\workflow.yaml",
+      "accessCount": 2,
+      "lastAccessed": 1777258391214,
+      "type": "file"
+    },
+    {
+      "path": "skills\\openspec-feature-workflow\\workflow.yaml",
+      "accessCount": 2,
+      "lastAccessed": 1777258391413,
+      "type": "file"
+    },
+    {
+      "path": "skills\\superpowers-learning-workflow\\workflow.yaml",
+      "accessCount": 2,
+      "lastAccessed": 1777258391476,
+      "type": "file"
+    },
+    {
+      "path": "LICENSE",
+      "accessCount": 1,
+      "lastAccessed": 1777256718795,
+      "type": "file"
+    },
+    {
+      "path": "MEMORY.md",
+      "accessCount": 1,
+      "lastAccessed": 1777256718993,
+      "type": "file"
+    },
+    {
+      "path": "CHANGELOG.md",
+      "accessCount": 1,
+      "lastAccessed": 1777256719071,
+      "type": "file"
+    },
+    {
+      "path": "C:\\Users\\KC\\.claude\\plugins\\cache\\mempalace\\mempalace\\3.0.14\\hooks\\mempal-precompact-hook.sh",
+      "accessCount": 1,
+      "lastAccessed": 1777257026783,
+      "type": "file"
+    },
+    {
+      "path": "C:\\Users\\KC\\.claude\\plugins\\cache\\mempalace\\mempalace\\3.0.14\\hooks\\mempal-stop-hook.sh",
+      "accessCount": 1,
+      "lastAccessed": 1777257026822,
+      "type": "file"
+    },
+    {
+      "path": "templates",
+      "accessCount": 1,
+      "lastAccessed": 1777257233117,
+      "type": "directory"
+    },
+    {
+      "path": "skills",
+      "accessCount": 1,
+      "lastAccessed": 1777257233310,
+      "type": "directory"
+    },
+    {
+      "path": "scripts\\install-cursor.ps1",
+      "accessCount": 1,
+      "lastAccessed": 1777257268149,
+      "type": "file"
+    },
+    {
+      "path": "scripts\\install-superpowers-memory.ps1",
+      "accessCount": 1,
+      "lastAccessed": 1777257268273,
+      "type": "file"
+    },
+    {
+      "path": "scripts\\generate-superpowers-promotion-drafts.ps1",
+      "accessCount": 1,
+      "lastAccessed": 1777257275635,
+      "type": "file"
+    },
+    {
+      "path": "scripts\\common\\dependency-check.ps1",
+      "accessCount": 1,
+      "lastAccessed": 1777257275674,
+      "type": "file"
+    },
+    {
+      "path": "scripts\\generate-superpowers-promotion-drafts.sh",
+      "accessCount": 1,
+      "lastAccessed": 1777257275867,
+      "type": "file"
+    },
+    {
+      "path": "scripts\\install-superpowers-memory-integration.ps1",
+      "accessCount": 1,
+      "lastAccessed": 1777257275941,
+      "type": "file"
+    },
+    {
+      "path": "skills\\superpowers-feature-workflow\\agents\\openai.yaml",
+      "accessCount": 1,
+      "lastAccessed": 1777257293078,
+      "type": "file"
+    },
+    {
+      "path": "skills\\openspec-feature-workflow\\agents\\openai.yaml",
+      "accessCount": 1,
+      "lastAccessed": 1777257293145,
+      "type": "file"
+    },
+    {
+      "path": "skills\\openspec-superpowers-workflow\\agents\\openai.yaml",
+      "accessCount": 1,
+      "lastAccessed": 1777257293172,
+      "type": "file"
+    },
+    {
+      "path": "skills\\superpowers-openspec-execution-workflow\\agents\\openai.yaml",
+      "accessCount": 1,
+      "lastAccessed": 1777257293275,
+      "type": "file"
+    },
+    {
+      "path": "skills\\superpowers-learning-workflow\\agents\\openai.yaml",
+      "accessCount": 1,
+      "lastAccessed": 1777257293342,
+      "type": "file"
+    },
+    {
+      "path": "scripts\\run-superpowers-memory-closeout.ps1",
+      "accessCount": 1,
+      "lastAccessed": 1777257294347,
+      "type": "file"
+    },
+    {
+      "path": "scripts\\validate-superpowers-memory.ps1",
+      "accessCount": 1,
+      "lastAccessed": 1777257294438,
+      "type": "file"
+    },
+    {
+      "path": "scripts\\suggest-superpowers-memory-updates.ps1",
+      "accessCount": 1,
+      "lastAccessed": 1777257294514,
+      "type": "file"
+    }
+  ],
+  "userDirectives": []
+}

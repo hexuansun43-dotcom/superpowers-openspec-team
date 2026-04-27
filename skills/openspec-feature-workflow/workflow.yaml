@@ -1,0 +1,20 @@
+name: openspec-feature-workflow
+type: workflow
+standalone: false
+description: Create and complete OpenSpec proposal, design, specs, and tasks before implementation.
+tool_support:
+  - codex
+  - cursor
+  - claude-code
+activation:
+  mode: explicit-only
+  triggers:
+    - user-explicit-skill-name
+    - user-explicit-workflow-request
+    - repo-policy-explicit-requirement
+dependencies:
+  external_skills: []
+runtime_requirements:
+  - openspec-cli
+outputs:
+  - openspec/changes/<change-name>/

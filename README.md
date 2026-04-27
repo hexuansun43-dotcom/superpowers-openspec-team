@@ -1,0 +1,219 @@
+# Superpowers + OpenSpec Team Skills
+
+CLI-driven workflow skills for AI coding agents. Install structured delivery processes into Claude Code, Cursor, Codex, Gemini CLI, or OMC with a single command.
+
+## Quick Start
+
+```bash
+npm install -g superpowers-openspec-team
+
+# Initialize all skills for detected AI tools
+sot init /path/to/your/project
+
+# Or target a specific tool
+sot init /path/to/your/project --tool claude-code
+
+# Include project memory template
+sot init /path/to/your/project --with-memory
+```
+
+After initialization, invoke a workflow explicitly in your AI tool:
+
+```text
+Use the openspec-superpowers workflow for this feature.
+```
+
+## CLI Commands
+
+The `sot` CLI (v2.0.0) is the primary way to install, build, validate, and manage workflow skills.
+
+### sot init
+
+Initialize skills into a project for one or more AI tools.
+
+```bash
+sot init /path/to/project                 # auto-detect tools
+sot init . --tool claude-code,cursor       # target specific tools
+sot init . --tool codex --force            # skip prompts
+sot init . --with-memory                   # install .superpowers-memory/ template
+sot init . --dry-run                       # preview without writing
+sot init . --backup                        # backup before overwriting
+sot init . --tool claude-code --force --json  # agent-friendly JSON output
+```
+
+### sot update
+
+Update previously installed skills. Only overwrites files that carry the `generatedBy: sot@` marker; manually edited files are left intact.
+
+```bash
+sot update /path/to/project
+sot update . --dry-run
+sot update . --backup
+```
+
+### sot build
+
+Build `dist/` bundles from `skills/` source definitions. Used by maintainers after changing source workflows.
+
+```bash
+sot build
+sot build --json
+```
+
+### sot validate
+
+Validate installation integrity. Checks generatedBy markers, checksums, and memory date formats.
+
+```bash
+sot validate /path/to/project
+sot validate . --json
+```
+
+### sot list
+
+List available skills and detected installed tools.
+
+```bash
+sot list
+sot list --json
+```
+
+### sot install-deps
+
+Check and install runtime dependencies declared in `workflow.yaml` files.
+
+```bash
+sot install-deps              # check only
+sot install-deps --force      # install missing deps
+sot install-deps --json
+```
+
+### sot config
+
+View or modify global configuration.
+
+```bash
+sot config                    # show all settings
+sot config --get defaultTools
+sot config --set defaultTools=claude-code,cursor
+sot config --set backupEnabled=true
+```
+
+Valid config keys: `defaultTools`, `deliveryMode`, `backupEnabled`.
+
+### Global Options
+
+All commands support `--json` for machine-readable output and `--debug` for verbose logging.
+
+## Supported Tools
+
+Five adapters are included:
+
+| Adapter | ID | Writes to |
+|---------|----|-----------|
+| Claude Code | `claude-code` | `.claude/commands/`, `CLAUDE.md` |
+| Cursor | `cursor` | `.cursor/rules/`, `AGENTS.md` |
+| Codex | `codex` | Codex home skills directory |
+| Gemini CLI | `gemini` | `GEMINI.md`, `gemini-extension.json` |
+| OMC | `omc` | `.omc/` |
+
+## Project Memory (.superpowers-memory/)
+
+When `sot init --with-memory` is used, the project receives a `.superpowers-memory/` directory that gives AI agents a lightweight cross-session memory:
+
+- `PROJECT_CONTEXT.md` -- stable project facts and architecture
+- `CURRENT_STATE.md` -- latest working context and next steps
+- `DECISIONS.md` -- cross-session design and process decisions
+- `KNOWN_FAILURES.md` -- recurring failure patterns and pitfalls
+- `VERIFICATION_BASELINE.md` -- trusted verification methods
+- `TEAM_PREFERENCES.md` -- durable collaboration preferences
+- `USER_PROFILE.md` -- user communication and output preferences
+- `AGENT_NOTES.md` -- execution reminders and quality notes
+- `LEARNING_BACKLOG.md` -- reusable lessons pending promotion
+- `SESSION_CLOSE_CHECKLIST.md` -- session-close reminder
+- `memory-index.yaml` -- health metadata and freshness tracking
+- `session-journal/` -- one short note per meaningful session
+
+Memory is opt-in. It only activates when `.superpowers-memory/` exists and a Superpowers workflow reads it.
+
+## Recommended Workflows
+
+| Workflow | Purpose |
+|----------|---------|
+| `openspec-superpowers` | End-to-end: clarification through verification |
+| `superpowers-openspec-execution` | Four-step: explore, lock spec, implement, archive |
+| `superpowers-feature` | Design, plan, TDD, verify -- no OpenSpec artifacts |
+| `superpowers-learning` | Reflective capture of lessons and project memory |
+| `openspec-feature` | OpenSpec proposal, design, specs, tasks only |
+
+For long-running projects, a good pattern is: deliver with a feature workflow, then close with `superpowers-learning` to preserve durable lessons.
+
+## Repository Layout
+
+```text
+skills/        source workflow definitions (maintainer-facing)
+dist/          tool-adapted bundles (generated by sot build)
+src/           CLI source code (TypeScript)
+templates/     memory template scaffold
+scripts/       legacy install scripts (backward compat)
+bin/           CLI entry point
+test/          test suite (vitest)
+```
+
+`skills/` contains the source definitions. `dist/` is deterministically generated from `skills/` via `sot build` -- do not edit `dist/` directly.
+
+## Backward Compatibility: Script Installers
+
+Legacy PowerShell and shell installers remain under `scripts/` for backward compatibility. If you cannot use the CLI:
+
+```bash
+# PowerShell
+.\scripts\install-codex.ps1 -Bundle openspec-superpowers
+.\scripts\install-cursor.ps1 -Bundle openspec-superpowers -ProjectRoot <project-root>
+.\scripts\install-claude-code.ps1 -Bundle openspec-superpowers -ProjectRoot <project-root>
+
+# Shell (macOS/Linux)
+sh scripts/install-codex.sh --bundle openspec-superpowers --codex-home "$HOME/.codex"
+sh scripts/install-cursor.sh --bundle openspec-superpowers --project-root <project-root>
+sh scripts/install-claude-code.sh --bundle openspec-superpowers --project-root <project-root>
+```
+
+Script flags include `--dry-run`, `--backup`, `--force`, and `--check-dependencies`. The CLI is recommended for new installations.
+
+## Explicit Activation
+
+These workflows should only activate when:
+
+- the user explicitly names the workflow
+- the user explicitly asks for the workflow style
+- the repository policy explicitly requires the workflow
+
+They should not be treated as default background behavior. Install the bundle, keep normal prompts unchanged, and explicitly invoke the workflow only when you want it.
+
+## Development & Contributing
+
+```bash
+# Build CLI
+npm run build
+
+# Type check
+npx tsc --noEmit
+
+# Run tests
+npm test
+
+# Watch tests
+npm run test:watch
+```
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for contribution guidelines.
+
+## Documentation Index
+
+- [Chinese README](README.cn.md)
+- [Source workflow overview](skills/README.md)
+- [Source workflow installation notes](skills/INSTALL.md)
+- [Contributing guide](CONTRIBUTING.md)
+- [Security policy](SECURITY.md)
+- [Changelog](CHANGELOG.md)
+- [Code of conduct](CODE_OF_CONDUCT.md)

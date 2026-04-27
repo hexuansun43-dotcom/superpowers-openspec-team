@@ -1,0 +1,7 @@
+name: test-skill
+type: workflow
+standalone: true
+description: A skill for testing
+tool_support:
+  - claude-code
+  - cursor

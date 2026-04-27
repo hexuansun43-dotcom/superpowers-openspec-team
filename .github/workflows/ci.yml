@@ -1,0 +1,130 @@
+name: CI
+
+permissions:
+  contents: read
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+      - master
+
+jobs:
+  content-checks:
+    name: Content checks
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11  # v4.1.1
+
+      - name: Verify required governance files
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -f LICENSE
+          test -f CONTRIBUTING.md
+          test -f SECURITY.md
+          test -f CODE_OF_CONDUCT.md
+          test -f CHANGELOG.md
+          test -f .github/PULL_REQUEST_TEMPLATE.md
+          test -f .github/ISSUE_TEMPLATE/bug_report.md
+          test -f .github/ISSUE_TEMPLATE/feature_request.md
+          test -f .github/ISSUE_TEMPLATE/config.yml
+
+      - name: Check for placeholder values
+        shell: bash
+        run: |
+          set -euo pipefail
+          placeholder_pattern='OWNER''/REPO|TO''DO|T''BD'
+          if grep -RInE "$placeholder_pattern" .github README.md CONTRIBUTING.md SECURITY.md CODE_OF_CONDUCT.md CHANGELOG.md; then
+            echo "Found placeholder content"
+            exit 1
+          fi
+
+  powershell-smoke:
+    name: PowerShell smoke
+    runs-on: windows-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11  # v4.1.1
+
+      - name: Parse PowerShell scripts
+        shell: pwsh
+        run: |
+          $errors = @()
+          Get-ChildItem -Path scripts -Filter *.ps1 | ForEach-Object {
+            $null = $tokens = $parseErrors = $null
+            [System.Management.Automation.Language.Parser]::ParseFile($_.FullName, [ref]$tokens, [ref]$parseErrors) | Out-Null
+            if ($parseErrors.Count -gt 0) {
+              $errors += $parseErrors | ForEach-Object { "$($_.Extent.File):$($_.Extent.StartLineNumber): $($_.Message)" }
+            }
+          }
+          if ($errors.Count -gt 0) {
+            $errors | ForEach-Object { Write-Error $_ }
+            exit 1
+          }
+
+      - name: Run memory smoke flow
+        shell: pwsh
+        run: |
+          $projectRoot = Join-Path $env:RUNNER_TEMP "memory-smoke-project"
+          if (Test-Path $projectRoot) {
+            Remove-Item -LiteralPath $projectRoot -Recurse -Force
+          }
+          New-Item -ItemType Directory -Path $projectRoot | Out-Null
+          .\scripts\install-superpowers-memory.ps1 -ProjectRoot $projectRoot
+          .\scripts\validate-superpowers-memory.ps1 -ProjectRoot $projectRoot
+          .\scripts\search-superpowers-memory.ps1 -ProjectRoot $projectRoot -Type decisions -Query "template" -Summary
+          .\scripts\suggest-superpowers-memory-updates.ps1 -ProjectRoot $projectRoot -ChangedPaths "scripts/validate-superpowers-memory.ps1" -Signals "validation"
+          .\scripts\run-superpowers-memory-closeout.ps1 -ProjectRoot $projectRoot -ChangedPaths "scripts/validate-superpowers-memory.ps1" -Signals "validation" -RunValidator
+
+  shell-smoke:
+    name: Shell smoke
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11  # v4.1.1
+
+      - name: Parse shell scripts
+        shell: bash
+        run: |
+          set -euo pipefail
+          for file in scripts/*.sh; do
+            bash -n "$file"
+          done
+
+      - name: Run memory smoke flow
+        shell: bash
+        run: |
+          set -euo pipefail
+          project_root="$RUNNER_TEMP/memory-smoke-project"
+          rm -rf "$project_root"
+          mkdir -p "$project_root"
+          sh "./scripts/install-superpowers-memory.sh" --project-root "$project_root"
+          sh "./scripts/validate-superpowers-memory.sh" --project-root "$project_root"
+          sh "./scripts/search-superpowers-memory.sh" --project-root "$project_root" --type decisions --query template --summary --recent-first
+          sh "./scripts/suggest-superpowers-memory-updates.sh" --project-root "$project_root" --changed-paths "scripts/validate-superpowers-memory.ps1" --signals "validation"
+          sh "./scripts/run-superpowers-memory-closeout.sh" --project-root "$project_root" --changed-paths "scripts/validate-superpowers-memory.ps1" --signals "validation" --run-validator
+
+  build-and-test:
+    name: Build and test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11  # v4.1.1
+
+      - name: Setup Node.js
+        uses: actions/setup-node@60edb5dd545a9758f28e8e04b5b3c5e65982ad5f  # v4.0.2
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build
+        run: npm run build
+
+      - name: Test
+        run: npm test
