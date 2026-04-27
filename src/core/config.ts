@@ -53,7 +53,7 @@ export const TOOL_REGISTRY: Record<string, { name: string; skillsDir: string; de
   codex: {
     name: 'OpenAI Codex',
     skillsDir: '.codex/skills',
-    detectionPaths: ['.codex/', 'AGENTS.md'],
+    detectionPaths: ['.codex/'],
   },
   gemini: {
     name: 'Gemini CLI',

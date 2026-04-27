@@ -76,7 +76,7 @@ export function detectInstalledTools(projectRoot: string): string[] {
     const detectionPaths: Record<string, string[]> = {
       'claude-code': ['.claude/', 'CLAUDE.md', '.omc/', '.claude/plugins/oh-my-claudecode/'],
       cursor: ['.cursor/', '.cursorrules'],
-      codex: ['.codex/', 'AGENTS.md'],
+      codex: ['.codex/'],
       gemini: ['GEMINI.md'],
     };
 
