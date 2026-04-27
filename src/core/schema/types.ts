@@ -48,14 +48,7 @@ export const WorkflowMetaSchema = z.object({
         .optional(),
     })
     .optional(),
-  outputs: z
-    .array(
-      z.object({
-        path: z.string(),
-        type: z.enum(['directory', 'file']),
-      })
-    )
-    .optional(),
+  outputs: z.array(z.string()).optional(),
   security: z
     .object({
       writable_paths: z.array(z.string()).optional(),
