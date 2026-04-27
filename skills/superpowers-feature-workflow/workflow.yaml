@@ -2,6 +2,20 @@ name: superpowers-feature-workflow
 type: workflow
 standalone: false
 description: Design, plan, implement with TDD, and verify without OpenSpec artifact generation.
+model_hint: sonnet
+tags:
+  - feature
+  - tdd
+  - workflow
+category: engineering
+phases:
+  - name: clarification
+    model_hint: haiku
+  - name: brainstorming
+  - name: planning
+  - name: implementation
+  - name: verification
+    model_hint: opus
 tool_support:
   - codex
   - cursor

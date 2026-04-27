@@ -2,6 +2,18 @@ name: openspec-feature-workflow
 type: workflow
 standalone: false
 description: Create and complete OpenSpec proposal, design, specs, and tasks before implementation.
+model_hint: sonnet
+tags:
+  - openspec
+  - specs
+  - proposal
+category: engineering
+phases:
+  - name: proposal
+  - name: design
+  - name: specs
+  - name: tasks
+    model_hint: haiku
 tool_support:
   - codex
   - cursor

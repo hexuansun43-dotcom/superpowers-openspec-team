@@ -2,6 +2,20 @@ name: superpowers-openspec-execution-workflow
 type: orchestrator
 standalone: false
 description: Explore with Superpowers, lock behavior with OpenSpec, return to Superpowers for execution, then archive the OpenSpec change.
+model_hint: sonnet
+tags:
+  - orchestration
+  - openspec
+  - execution
+category: orchestration
+phases:
+  - name: exploration
+  - name: openspec-lock
+  - name: implementation
+  - name: verification
+    model_hint: opus
+  - name: archive
+    model_hint: haiku
 tool_support:
   - codex
   - cursor

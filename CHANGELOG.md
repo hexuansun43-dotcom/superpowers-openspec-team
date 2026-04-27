@@ -2,6 +2,42 @@
 
 All notable changes to `superpowers-openspec-team-skills` should be documented in this file.
 
+## [2.5.0] - 2026-04-27
+
+### Added
+
+- OMC integration: auto-detect oh-my-claudecode and install skills to .omc/skills/
+- `sot doctor` command — health check for OMC installation, skill sync, CLAUDE.md SOT block, registry version, MCP registration
+- CLAUDE.md SOT block injector (`injectSotBlock` / `removeSotBlock`) with OMC:END-aware insertion
+- MCP server enhanced with OMC complement hints when oh-my-claudecode is detected
+- Degradation gate in `sot build`: OMC adapter skipped when OMC not installed
+- OMC auto-detection in `sot init`: adds omc tool when OMC is available
+
+## [2.4.0] - 2026-04-27
+
+### Added
+
+- agentskills compatibility layer: `sot build --format agentskills` generates cross-platform manifests
+- `AgentskillsManifest` type and `mapToAgentskills()` mapping function
+- `--format` option on `sot build` (bundle | agentskills | all)
+
+## [2.3.0] - 2026-04-27
+
+### Added
+
+- `sot serve` MCP server command (stdio mode)
+- 6 MCP tools: sot_list_skills, sot_skill_detail, sot_skill_phases, sot_check_dependencies, sot_query_memory, sot_workflow_status
+- `@modelcontextprotocol/sdk` dependency
+
+## [2.1.0] - 2026-04-27
+
+### Added
+
+- Progressive skill loading: model_hint, tags, and category fields in SKILL.md frontmatter and workflow.yaml
+- SkillIndexEntry type for adapter-specific skill-index.json generation
+- skill-index.json now includes model_hint, tags, and category per skill
+- Expanded category enum: added orchestration and learning categories
+
 ## [2.0.10] - 2026-04-27
 
 ### Fixed

@@ -10,7 +10,9 @@ export class CodexAdapter extends BaseAdapter {
 
   generateSkill(skill: SkillDefinition, targetRoot: string): GeneratedFile[] {
     const skillPath = path.join(this.skillsDir, skill.name, 'SKILL.md');
-    const content = this.addGeneratedByMarker(skill.content);
+    const hint = skill.frontmatter.model_hint || skill.metadata?.model_hint;
+    const hintComment = hint ? `<!-- model_hint: ${hint} -->\n` : '';
+    const content = this.addGeneratedByMarker(hintComment + skill.content);
     return [this.createGeneratedFile(skillPath, content)];
   }
 
@@ -21,7 +23,15 @@ export class CodexAdapter extends BaseAdapter {
   generateConfig(skills: SkillDefinition[], targetRoot: string): GeneratedFile[] {
     const skillList = skills.map((s) => `- ${s.name}: ${s.description}`).join('\n');
     const content = this.buildAgentsMd(skillList);
-    return [this.createGeneratedFile('AGENTS.md.sot-snippet', content)];
+    const manifest = skills.map(s => ({
+      name: s.name,
+      model_hint: s.frontmatter.model_hint || s.metadata?.model_hint || 'sonnet',
+    }));
+    const manifestContent = JSON.stringify(manifest, null, 2);
+    return [
+      this.createGeneratedFile('AGENTS.md.sot-snippet', content),
+      this.createGeneratedFile('manifest.json', manifestContent),
+    ];
   }
 
   private buildAgentsMd(skillList: string): string {

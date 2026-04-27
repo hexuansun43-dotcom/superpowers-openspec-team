@@ -2,6 +2,19 @@ name: openspec-superpowers-workflow
 type: orchestrator
 standalone: false
 description: Full feature flow from clarification through OpenSpec artifacts, implementation, and verification.
+model_hint: sonnet
+tags:
+  - orchestration
+  - openspec
+  - full-flow
+category: orchestration
+phases:
+  - name: clarification
+    model_hint: haiku
+  - name: openspec-artifacts
+  - name: implementation
+  - name: verification
+    model_hint: opus
 tool_support:
   - codex
   - cursor

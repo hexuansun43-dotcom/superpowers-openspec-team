@@ -16,20 +16,24 @@ export class GeminiAdapter extends BaseAdapter {
     return [this.createGeneratedFile('GEMINI.md', content)];
   }
 
-  generateConfig(_skills: SkillDefinition[], _targetRoot: string): GeneratedFile[] {
-    return [this.createGeneratedFile('gemini-extension.json', this.buildExtensionJson())];
+  generateConfig(skills: SkillDefinition[], _targetRoot: string): GeneratedFile[] {
+    const firstHint = skills[0]?.frontmatter.model_hint || skills[0]?.metadata?.model_hint;
+    return [this.createGeneratedFile('gemini-extension.json', this.buildExtensionJson(firstHint))];
   }
 
   private buildGeminiMd(skill: SkillDefinition): string {
-    return this.addGeneratedByMarker(`# ${skill.name}\n\n${skill.description}\n\n---\n\n${skill.content}\n`);
+    const hint = skill.frontmatter.model_hint || skill.metadata?.model_hint;
+    const hintComment = hint ? `<!-- model_hint: ${hint} -->\n` : '';
+    return this.addGeneratedByMarker(`${hintComment}# ${skill.name}\n\n${skill.description}\n\n---\n\n${skill.content}\n`);
   }
 
-  private buildExtensionJson(): string {
+  private buildExtensionJson(modelHint?: string): string {
     return JSON.stringify(
       {
         name: 'superpowers-openspec',
-        version: '2.0.10',
+        version: '2.4.0',
         contextFileName: 'GEMINI.md',
+        ...(modelHint ? { model_hint: modelHint } : {}),
       },
       null,
       2

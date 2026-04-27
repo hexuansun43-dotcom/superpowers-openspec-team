@@ -2,6 +2,18 @@ name: superpowers-learning-workflow
 type: workflow
 standalone: true
 description: Capture durable project knowledge, current state, session outcomes, and reusable lessons after meaningful work.
+model_hint: haiku
+tags:
+  - learning
+  - memory
+  - standalone
+category: learning
+phases:
+  - name: capture
+    model_hint: haiku
+  - name: reflect
+  - name: store
+    model_hint: haiku
 tool_support:
   - codex
   - cursor

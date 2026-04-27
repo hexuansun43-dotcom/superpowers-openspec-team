@@ -1,6 +1,13 @@
 ---
 name: openspec-superpowers-workflow
 description: Use when the user explicitly wants the full OpenSpec plus Superpowers path from clarification through proposal, design, tasks, implementation, verification, and optional archive.
+argument-hint: "full flow: clarify, OpenSpec artifacts, implement, verify"
+model_hint: sonnet
+tags:
+  - orchestration
+  - openspec
+  - full-flow
+category: orchestration
 ---
 
 # OpenSpec + Superpowers Workflow

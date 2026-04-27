@@ -1,6 +1,13 @@
 ---
 name: openspec-feature-workflow
 description: Use when a feature needs an OpenSpec change with proposal, design, specs, and tasks completed before coding. Trigger when the repo policy requires OpenSpec for non-trivial features, when the user asks for proposal/design/tasks first, or when behavior changes need durable change artifacts.
+argument-hint: "generate OpenSpec proposal, design, specs, tasks"
+model_hint: sonnet
+tags:
+  - openspec
+  - specs
+  - proposal
+category: engineering
 ---
 
 # OpenSpec Feature Workflow

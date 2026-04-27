@@ -12,7 +12,13 @@ export class ClaudeCodeAdapter extends BaseAdapter {
     const files: GeneratedFile[] = [];
     const skillDir = path.join(this.skillsDir, skill.name);
     const skillPath = path.join(skillDir, 'SKILL.md');
-    const content = this.addGeneratedByMarker(skill.content);
+    const hint = skill.frontmatter.model_hint || skill.metadata?.model_hint;
+    const fmLines = [`---`, `name: ${skill.name}`, `description: "${skill.description}"`];
+    if (hint) fmLines.push(`model_hint: ${hint}`);
+    if (skill.frontmatter.tags?.length) fmLines.push(`tags:\n${skill.frontmatter.tags.map(t => `  - ${t}`).join('\n')}`);
+    if (skill.frontmatter.category) fmLines.push(`category: ${skill.frontmatter.category}`);
+    fmLines.push(`---`);
+    const content = this.addGeneratedByMarker(fmLines.join('\n') + '\n\n' + skill.content);
     files.push(this.createGeneratedFile(skillPath, content));
     return files;
   }
@@ -32,7 +38,9 @@ export class ClaudeCodeAdapter extends BaseAdapter {
   }
 
   private buildCommandContent(skill: SkillDefinition): string {
-    const frontmatter = `---\nname: ${skill.name}\ndescription: ${skill.description}\n---\n`;
+    const hint = skill.frontmatter.model_hint || skill.metadata?.model_hint;
+    const hintLine = hint ? `\nmodel_hint: ${hint}` : '';
+    const frontmatter = `---\nname: ${skill.name}\ndescription: ${skill.description}${hintLine}\n---\n`;
     return this.addGeneratedByMarker(frontmatter + '\n' + skill.content);
   }
 

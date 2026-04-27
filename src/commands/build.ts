@@ -5,17 +5,22 @@ import { ClaudeCodeAdapter } from '../core/adapters/claude-code.js';
 import { CursorAdapter } from '../core/adapters/cursor.js';
 import { CodexAdapter } from '../core/adapters/codex.js';
 import { GeminiAdapter } from '../core/adapters/gemini.js';
+import { OmcAdapter } from '../core/adapters/omc.js';
+import { detectOmc } from '../core/omc-detector.js';
 import { parseAllSkills } from '../core/schema/parser.js';
 import { computeChecksum } from '../utils/checksum.js';
 import { logger, formatJsonOutput } from '../utils/logger.js';
 import { resolvePackageRoot } from '../utils/paths.js';
-import type { ToolAdapter, SkillDefinition } from '../core/schema/types.js';
+import type { ToolAdapter, SkillDefinition, SkillIndexEntry } from '../core/schema/types.js';
+import { mapToAgentskills } from '../core/agentskills.js';
+import { VERSION } from '../core/config.js';
 
 const ADAPTERS: ToolAdapter[] = [
   new ClaudeCodeAdapter(),
   new CursorAdapter(),
   new CodexAdapter(),
   new GeminiAdapter(),
+  new OmcAdapter(),
 ];
 
 interface BundleManifest {
@@ -34,7 +39,8 @@ interface BundleManifest {
 export const buildCommand = new Command('build')
   .description('Build dist/ from skills/')
   .option('--json', 'Output in JSON format')
-  .action(async (options: { json?: boolean }) => {
+  .option('--format <format>', 'Output format: bundle (default), agentskills, all', 'bundle')
+  .action(async (options: { json?: boolean; format?: string }) => {
     const projectRoot = resolvePackageRoot();
     const skillsDir = path.join(projectRoot, 'skills');
     const distDir = path.join(projectRoot, 'dist');
@@ -53,10 +59,16 @@ export const buildCommand = new Command('build')
     let totalFiles = 0;
 
     for (const adapter of ADAPTERS) {
+      // Degradation gate: skip OMC adapter when OMC is not installed
+      if (adapter.id === 'omc' && !detectOmc(projectRoot).available) {
+        logger.debug(`Skipping ${adapter.name} — OMC not detected`);
+        continue;
+      }
+
       const bundleDir = path.join(distDir, adapter.id, 'bundles', 'superpowers-openspec');
       const manifest: BundleManifest = {
         adapter: adapter.id,
-        version: '2.0.10',
+        version: VERSION,
         generatedAt: new Date().toISOString(),
         skills: [],
       };
@@ -103,6 +115,49 @@ export const buildCommand = new Command('build')
         totalFiles++;
         logger.success(`Built bundle for ${adapter.name} (${manifest.skills.length} skill(s))`);
       }
+
+      // Generate skill-index.json
+      const skillIndex: SkillIndexEntry[] = skills.map((skill) => {
+        const skillRelPath = adapter.skillsDir
+          ? path.join(adapter.skillsDir, skill.name, 'SKILL.md').replace(/\\/g, '/')
+          : '';
+        return {
+          name: skill.name,
+          description: skill.description,
+          'argument-hint': skill.frontmatter['argument-hint'],
+          type: skill.type,
+          triggers: skill.frontmatter.triggers || skill.metadata?.activation?.triggers,
+          model_hint: skill.frontmatter.model_hint || skill.metadata?.model_hint,
+          tags: skill.frontmatter.tags || skill.metadata?.tags,
+          category: skill.frontmatter.category || skill.metadata?.category,
+          phases: skill.metadata?.phases,
+          skill_path: skillRelPath,
+        };
+      });
+
+      const indexPath = path.join(distDir, adapter.id, 'skill-index.json');
+      if (!fs.existsSync(path.dirname(indexPath))) {
+        fs.mkdirSync(path.dirname(indexPath), { recursive: true });
+      }
+      fs.writeFileSync(indexPath, JSON.stringify(skillIndex, null, 2));
+      totalFiles++;
+      logger.debug(`Wrote skill-index.json for ${adapter.name}`);
+    }
+
+    // Generate agentskills manifests if requested
+    if (options.format === 'agentskills' || options.format === 'all') {
+      const agentskillsDir = path.join(distDir, 'agentskills');
+      if (!fs.existsSync(agentskillsDir)) {
+        fs.mkdirSync(agentskillsDir, { recursive: true });
+      }
+
+      for (const skill of skills) {
+        const manifest = mapToAgentskills(skill, VERSION);
+        const manifestPath = path.join(agentskillsDir, `${skill.name}.json`);
+        fs.writeFileSync(manifestPath, JSON.stringify(manifest, null, 2));
+        totalFiles++;
+      }
+      logger.success(`Built ${skills.length} agentskills manifest(s)`);
     }
 
     // Write global checksums.json

@@ -10,14 +10,40 @@ export const SkillFrontmatterSchema = z.object({
   triggers: z.array(z.string()).optional(),
   dependencies: z
     .object({
-      skills: z.array(z.string()).optional(),
-      external: z.array(z.string()).optional(),
+      workflows: z.array(z.string()).optional(),
+      external_skills: z.array(z.string()).optional(),
     })
     .optional(),
   outputs: z.array(z.string()).optional(),
+  // P0: Progressive loading fields
+  model_hint: z.enum(['haiku', 'sonnet', 'opus']).optional(),
+  tags: z.array(z.string()).optional(),
+  category: z.enum(['engineering', 'orchestration', 'learning', 'writing', 'research', 'planning', 'review', 'debugging']).optional(),
 });
 
 export type SkillFrontmatter = z.infer<typeof SkillFrontmatterSchema>;
+
+// Skill index entry for skill-index.json
+export interface SkillIndexEntry {
+  name: string;
+  description: string;
+  'argument-hint'?: string;
+  type: 'orchestrator' | 'workflow';
+  triggers?: string[];
+  model_hint?: 'haiku' | 'sonnet' | 'opus';
+  tags?: string[];
+  category?: 'engineering' | 'orchestration' | 'learning' | 'writing' | 'research' | 'planning' | 'review' | 'debugging';
+  phases?: Phase[];
+  skill_path: string;
+}
+
+// Phase definition for workflow phases
+export const PhaseSchema = z.object({
+  name: z.string(),
+  model_hint: z.enum(['haiku', 'sonnet', 'opus']).optional().default('sonnet'),
+});
+
+export type Phase = z.infer<typeof PhaseSchema>;
 
 // Workflow.yaml schema
 export const WorkflowMetaSchema = z.object({
@@ -25,6 +51,9 @@ export const WorkflowMetaSchema = z.object({
   type: z.enum(['orchestrator', 'workflow']),
   standalone: z.boolean(),
   description: z.string(),
+  model_hint: z.enum(['haiku', 'sonnet', 'opus']).optional(),
+  tags: z.array(z.string()).optional(),
+  category: z.enum(['engineering', 'orchestration', 'learning', 'writing', 'research', 'planning', 'review', 'debugging']).optional(),
   version: z.string().optional(),
   tool_support: z.array(z.string()).optional(),
   activation: z
@@ -35,20 +64,12 @@ export const WorkflowMetaSchema = z.object({
     .optional(),
   dependencies: z
     .object({
-      skills: z.array(z.string()).optional(),
-      external: z
-        .array(
-          z.object({
-            name: z.string(),
-            version: z.string().optional(),
-            optional: z.boolean().optional(),
-            check_command: z.string().optional(),
-          })
-        )
-        .optional(),
+      workflows: z.array(z.string()).optional(),
+      external_skills: z.array(z.string()).optional(),
     })
     .optional(),
   outputs: z.array(z.string()).optional(),
+  phases: z.array(PhaseSchema).optional(),
   optional_features: z
     .record(
       z.string(),
@@ -79,6 +100,21 @@ export interface SkillDefinition {
   type: 'orchestrator' | 'workflow';
   standalone: boolean;
   dependencies: string[];
+}
+
+// Agentskills compatibility manifest
+export interface AgentskillsManifest {
+  id: string;
+  version: string;
+  type: 'workflow' | 'orchestrator';
+  description: string;
+  triggers?: string[];
+  tags?: string[];
+  category?: string;
+  phases?: Array<{ name: string; modelHint: string }>;
+  dependencies: string[];
+  outputs?: string[];
+  instructions: string;
 }
 
 // Generated file representation

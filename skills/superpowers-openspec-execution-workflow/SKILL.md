@@ -1,6 +1,13 @@
 ---
 name: superpowers-openspec-execution-workflow
-description: Use when the team explicitly wants the Superpowers exploration, OpenSpec specification, Superpowers execution, and OpenSpec archive workflow for a feature 
+description: Use when the team explicitly wants the Superpowers exploration, OpenSpec specification, Superpowers execution, and OpenSpec archive workflow for a feature
+argument-hint: "explore with Superpowers, lock with OpenSpec, execute, archive"
+model_hint: sonnet
+tags:
+  - orchestration
+  - openspec
+  - execution
+category: orchestration
 ---
 
 # Superpowers -> OpenSpec -> Superpowers Workflow

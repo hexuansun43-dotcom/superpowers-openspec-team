@@ -1,6 +1,13 @@
 ---
 name: superpowers-learning-workflow
 description: Use when the user explicitly wants to capture lessons from completed work, persist durable project knowledge, or turn repeated patterns into reusable learning notes for future sessions.
+argument-hint: "capture learnings, session closeout, memory update"
+model_hint: haiku
+tags:
+  - learning
+  - memory
+  - standalone
+category: learning
 ---
 
 # Superpowers Learning Workflow

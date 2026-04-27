@@ -10,6 +10,7 @@ import { GeminiAdapter } from '../core/adapters/gemini.js';
 import { parseAllSkills } from '../core/schema/parser.js';
 import { installFiles, detectInstalledTools } from '../core/installer/installer.js';
 import { TOOL_REGISTRY } from '../core/config.js';
+import { detectOmc } from '../core/omc-detector.js';
 import { logger, formatJsonOutput } from '../utils/logger.js';
 import { resolveSkillsDir, resolvePackageRoot } from '../utils/paths.js';
 import { interactiveToolSelect } from '../utils/interactive.js';
@@ -151,6 +152,13 @@ export const initCommand = new Command('init')
     if (!isInteractive) {
       logger.info(`Found ${skills.length} skill(s)`);
       logger.info(`Target tools: ${selectedToolIds.join(', ')}`);
+    }
+
+    // OMC auto-detection: add omc tool when OMC is installed
+    const omcResult = detectOmc(projectRoot);
+    if (omcResult.available && !selectedToolIds.includes('omc')) {
+      selectedToolIds.push('omc');
+      logger.info('OMC detected — skills will also be installed to .omc/skills/');
     }
 
     // Generate files for each selected tool

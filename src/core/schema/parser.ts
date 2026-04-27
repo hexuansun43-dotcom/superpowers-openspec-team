@@ -49,7 +49,7 @@ export function parseSkill(skillDir: string): SkillDefinition {
 
   const type = frontmatter.type || metadata?.type || 'workflow';
   const standalone = frontmatter.standalone ?? metadata?.standalone ?? true;
-  const dependencies = frontmatter.dependencies?.skills || metadata?.dependencies?.skills || [];
+  const dependencies = frontmatter.dependencies?.workflows || metadata?.dependencies?.workflows || [];
 
   return {
     name: frontmatter.name,

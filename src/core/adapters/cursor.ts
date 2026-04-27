@@ -27,7 +27,11 @@ export class CursorAdapter extends BaseAdapter {
   }
 
   private buildRuleContent(skill: SkillDefinition): string {
-    return this.addGeneratedByMarker(`---\ndescription: ${skill.description}\nglobs:\nalwaysApply: false\n---\n\n${skill.content}\n`);
+    const hint = skill.frontmatter.model_hint || skill.metadata?.model_hint;
+    const metadata = [`---`, `description: ${skill.description}`];
+    if (hint) metadata.push(`modelHint: ${hint}`);
+    metadata.push(`globs:`, `alwaysApply: false`, `---`);
+    return this.addGeneratedByMarker(metadata.join('\n') + '\n\n' + skill.content + '\n');
   }
 
   private buildAgentsMdSnippet(skillRefs: string): string {

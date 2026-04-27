@@ -6,8 +6,10 @@ import { validateCommand } from '../commands/validate.js';
 import { listCommand } from '../commands/list.js';
 import { installDepsCommand } from '../commands/install-deps.js';
 import { configCommand } from '../commands/config.js';
+import { serveCommand } from '../commands/serve.js';
+import { doctorCommand } from '../commands/doctor.js';
 
-const VERSION = '2.0.10';
+const VERSION = '2.5.0';
 
 const program = new Command();
 
@@ -26,6 +28,8 @@ program.addCommand(validateCommand);
 program.addCommand(listCommand);
 program.addCommand(installDepsCommand);
 program.addCommand(configCommand);
+program.addCommand(serveCommand);
+program.addCommand(doctorCommand);
 
 // Global options handling
 program.hook('preAction', (thisCommand) => {

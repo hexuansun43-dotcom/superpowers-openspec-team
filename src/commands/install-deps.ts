@@ -37,18 +37,14 @@ function collectExternalDependencies(skillsDir: string): Array<{
       const dependencies = parsed.dependencies as Record<string, unknown> | undefined;
       if (!dependencies) continue;
 
-      const external = dependencies.external as Array<Record<string, unknown>> | undefined;
+      const external = dependencies.external_skills as Array<string> | undefined;
       if (!external) continue;
 
-      for (const dep of external) {
-        const name = dep.name as string;
+      for (const name of external) {
         if (!name || seen.has(name)) continue;
         seen.add(name);
         deps.push({
           name,
-          version: dep.version as string | undefined,
-          optional: dep.optional as boolean | undefined,
-          checkCommand: dep.check_command as string | undefined,
         });
       }
     } catch {
