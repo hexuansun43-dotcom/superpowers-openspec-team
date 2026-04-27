@@ -2,6 +2,13 @@
 
 All notable changes to `superpowers-openspec-team-skills` should be documented in this file.
 
+## [2.0.9] - 2026-04-27
+
+### Fixed
+
+- Sync VERSION constant with package.json (was stuck at 2.0.0)
+- Remove stale powershell-smoke and shell-smoke CI jobs that referenced deleted scripts/ directory
+
 ## [2.0.0] - 2026-04-27
 
 ### Added
