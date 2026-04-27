@@ -62,4 +62,4 @@ export const TOOL_REGISTRY: Record<string, { name: string; skillsDir: string; de
   },
 };
 
-export const VERSION = '2.0.0';
+export const VERSION = '2.0.8';

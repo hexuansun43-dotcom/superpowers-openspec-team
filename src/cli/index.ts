@@ -7,7 +7,7 @@ import { listCommand } from '../commands/list.js';
 import { installDepsCommand } from '../commands/install-deps.js';
 import { configCommand } from '../commands/config.js';
 
-const VERSION = '2.0.0';
+const VERSION = '2.0.8';
 
 const program = new Command();
 
