@@ -28,7 +28,7 @@ export class GeminiAdapter extends BaseAdapter {
     return JSON.stringify(
       {
         name: 'superpowers-openspec',
-        version: '2.0.9',
+        version: '2.0.10',
         contextFileName: 'GEMINI.md',
       },
       null,

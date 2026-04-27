@@ -2,6 +2,12 @@
 
 All notable changes to `superpowers-openspec-team-skills` should be documented in this file.
 
+## [2.0.10] - 2026-04-27
+
+### Fixed
+
+- Set executable bit on bin/sot.js so npm correctly links the `sot` command
+
 ## [2.0.9] - 2026-04-27
 
 ### Fixed

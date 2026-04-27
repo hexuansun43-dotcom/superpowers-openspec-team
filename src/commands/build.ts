@@ -56,7 +56,7 @@ export const buildCommand = new Command('build')
       const bundleDir = path.join(distDir, adapter.id, 'bundles', 'superpowers-openspec');
       const manifest: BundleManifest = {
         adapter: adapter.id,
-        version: '2.0.9',
+        version: '2.0.10',
         generatedAt: new Date().toISOString(),
         skills: [],
       };
