@@ -37,8 +37,8 @@ Use the openspec-superpowers workflow for this feature.
 
 If you cannot use the CLI, legacy install scripts remain available:
 
-- Codex: `scripts/install-codex.ps1` or `scripts/install-codex.sh`
-- Cursor: `scripts/install-cursor.ps1` or `scripts/install-cursor.sh`
+- Codex: `sot init` or `sot init`
+- Cursor: `sot init` or `sot init`
 - Claude Code: `scripts/install-claude-code.ps1` or `scripts/install-claude-code.sh`
 
 Optional memory scaffold:

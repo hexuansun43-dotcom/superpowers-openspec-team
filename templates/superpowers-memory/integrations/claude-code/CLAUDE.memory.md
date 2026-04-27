@@ -21,7 +21,7 @@ Before ending a meaningful Superpowers-related session, update:
 - any durable files that changed during the work, especially `DECISIONS.md`, `KNOWN_FAILURES.md`, `VERIFICATION_BASELINE.md`, `TEAM_PREFERENCES.md`, `USER_PROFILE.md`, and `AGENT_NOTES.md`
 - one short markdown note under `.superpowers-memory/session-journal/`
 
-When memory updates are part of the workflow, run `scripts/validate-superpowers-memory.ps1` before claiming completion.
+When memory updates are part of the workflow, run `sot validate` before claiming completion.
 
 Do not treat memory files as permission to auto-enable Superpowers workflows. Workflow activation remains explicit opt-in.
 <!-- superpowers-memory:end -->

@@ -37,8 +37,8 @@ Use the openspec-superpowers workflow for this feature.
 
 如果无法使用 CLI，旧版安装脚本仍然可用：
 
-- Codex：`scripts/install-codex.ps1` 或 `scripts/install-codex.sh`
-- Cursor：`scripts/install-cursor.ps1` 或 `scripts/install-cursor.sh`
+- Codex：`sot init` 或 `sot init`
+- Cursor：`sot init` 或 `sot init`
 - Claude Code：`scripts/install-claude-code.ps1` 或 `scripts/install-claude-code.sh`
 
 可选记忆脚手架：

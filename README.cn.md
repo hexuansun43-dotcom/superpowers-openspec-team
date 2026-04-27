@@ -154,30 +154,11 @@ skills/        工作流源定义（面向维护者）
 dist/          工具适配分发包（由 sot build 从 skills/ 生成）
 src/           CLI 源码（TypeScript）
 templates/     记忆模板脚手架
-scripts/       旧版安装脚本（向后兼容）
 bin/           CLI 入口
 test/          测试套件（vitest）
 ```
 
 `skills/` 是源定义。`dist/` 由 `sot build` 从 `skills/` 确定性生成，不要直接编辑 `dist/`。
-
-## 向后兼容：脚本安装方式
-
-旧版 PowerShell 和 shell 安装脚本仍保留在 `scripts/` 下以保持向后兼容。如果无法使用 CLI：
-
-```bash
-# PowerShell
-.\scripts\install-codex.ps1 -Bundle openspec-superpowers
-.\scripts\install-cursor.ps1 -Bundle openspec-superpowers -ProjectRoot <project-root>
-.\scripts\install-claude-code.ps1 -Bundle openspec-superpowers -ProjectRoot <project-root>
-
-# Shell (macOS/Linux)
-sh scripts/install-codex.sh --bundle openspec-superpowers --codex-home "$HOME/.codex"
-sh scripts/install-cursor.sh --bundle openspec-superpowers --project-root <project-root>
-sh scripts/install-claude-code.sh --bundle openspec-superpowers --project-root <project-root>
-```
-
-脚本支持 `--dry-run`、`--backup`、`--force` 和 `--check-dependencies` 参数。推荐新安装使用 CLI。
 
 ## 显式启用规则
 

@@ -91,20 +91,20 @@
   "hotPaths": [
     {
       "path": "",
-      "accessCount": 26,
-      "lastAccessed": 1777272331312,
+      "accessCount": 27,
+      "lastAccessed": 1777280394083,
       "type": "directory"
     },
     {
-      "path": "README.cn.md",
-      "accessCount": 14,
-      "lastAccessed": 1777277961569,
+      "path": "README.md",
+      "accessCount": 20,
+      "lastAccessed": 1777280142050,
       "type": "file"
     },
     {
-      "path": "README.md",
-      "accessCount": 13,
-      "lastAccessed": 1777277960203,
+      "path": "README.cn.md",
+      "accessCount": 19,
+      "lastAccessed": 1777280150236,
       "type": "file"
     },
     {

@@ -6,8 +6,7 @@ This repository primarily contains:
 
 - CLI tool (`sot`) and its adapters
 - workflow definitions under `skills/`
-- install scripts under `scripts/`
-- memory and validation scripts
+- memory and validation via the CLI
 - tool-adapted bundles for AI coding assistants
 
 Security reports are especially relevant when they involve:

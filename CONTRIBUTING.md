@@ -88,10 +88,11 @@ sot init /tmp/test-project --with-memory --dry-run
 
 ### Installer or integration changes
 
-Legacy scripts still exist under `scripts/`. If you change them, validate in a real POSIX shell when possible.
+Test CLI commands in a real environment:
 
 ```bash
-sh scripts/install-codex.sh --bundle openspec-superpowers --codex-home /tmp/codex-test --dry-run
+sot init /tmp/test-project --tool claude-code --dry-run
+sot validate /tmp/test-project
 ```
 
 ## Pull Request Checklist

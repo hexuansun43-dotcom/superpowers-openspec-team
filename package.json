@@ -12,9 +12,7 @@
     "dist/",
     "bin/",
     "skills/",
-    "schemas/",
-    "templates/",
-    "scripts/"
+    "templates/"
   ],
   "scripts": {
     "build": "tsc",
