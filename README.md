@@ -7,14 +7,54 @@ CLI-driven workflow skills for AI coding agents. Install structured delivery pro
 ```bash
 npm install -g superpowers-openspec-team
 
-# Initialize all skills for detected AI tools
+# Interactive setup — auto-detects installed AI tools
 sot init /path/to/your/project
 
-# Or target a specific tool
+# Target a specific tool (skip interactive)
 sot init /path/to/your/project --tool claude-code
 
 # Include project memory template
 sot init /path/to/your/project --with-memory
+```
+
+Running `sot init` without `--tool` launches an interactive setup:
+
+1. **Welcome screen** — shows how many skills will be installed
+2. **Tool detection** — scans for Claude Code, Cursor, Codex, and Gemini CLI; pre-selects detected tools
+3. **Tool selection** — use arrow keys and space to add/remove tools
+4. **Installation** — generates and installs skill files with a spinner
+5. **Quick start guide** — shows next-step commands
+
+```text
+$ sot init ./my-project
+
+  Welcome to Superpowers-OpenSpec
+  A CLI-driven workflow skills framework for AI coding agents
+
+  This setup will configure:
+    • 5 workflow skill(s) for your AI tools
+    • Tool-specific command files and skill directories
+    • Optional .superpowers-memory/ for cross-session memory
+
+? Select AI tools to install skills for: (Space to toggle, Enter to confirm)
+  ◉ claude-code   (detected)
+  ◯ cursor
+  ◯ codex
+  ◉ gemini        (detected)
+
+✔ Installed 12 file(s) for 2 tool(s)
+
+  Quick start after setup:
+
+    sot list              # List available skills
+    sot update             # Update installed skills
+    sot validate           # Validate installation
+```
+
+For CI or agent-friendly use, add `--json` or `--force`:
+
+```bash
+sot init . --tool claude-code --force --json
 ```
 
 After initialization, invoke a workflow explicitly in your AI tool:

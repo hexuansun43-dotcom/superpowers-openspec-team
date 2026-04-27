@@ -7,14 +7,54 @@
 ```bash
 npm install -g superpowers-openspec-team
 
-# 自动检测并初始化所有已安装的 AI 工具
+# 交互式设置 — 自动检测已安装的 AI 工具
 sot init /path/to/your/project
 
-# 或者指定工具
+# 指定工具（跳过交互）
 sot init /path/to/your/project --tool claude-code
 
 # 同时安装项目记忆模板
 sot init /path/to/your/project --with-memory
+```
+
+不带 `--tool` 运行 `sot init` 会启动交互式设置：
+
+1. **欢迎界面** — 显示将要安装的技能数量
+2. **工具检测** — 扫描 Claude Code、Cursor、Codex 和 Gemini CLI；预选检测到的工具
+3. **工具选择** — 用方向键和空格键添加/移除工具
+4. **安装** — 生成并安装技能文件（带进度动画）
+5. **快速开始指南** — 显示下一步命令
+
+```text
+$ sot init ./my-project
+
+  Welcome to Superpowers-OpenSpec
+  A CLI-driven workflow skills framework for AI coding agents
+
+  This setup will configure:
+    • 5 workflow skill(s) for your AI tools
+    • Tool-specific command files and skill directories
+    • Optional .superpowers-memory/ for cross-session memory
+
+? Select AI tools to install skills for: (Space to toggle, Enter to confirm)
+  ◉ claude-code   (detected)
+  ◯ cursor
+  ◯ codex
+  ◉ gemini        (detected)
+
+✔ Installed 12 file(s) for 2 tool(s)
+
+  Quick start after setup:
+
+    sot list              # List available skills
+    sot update             # Update installed skills
+    sot validate           # Validate installation
+```
+
+CI 或 Agent 调用时可加 `--json` 或 `--force`：
+
+```bash
+sot init . --tool claude-code --force --json
 ```
 
 初始化后，在 AI 工具中显式调用工作流即可：
