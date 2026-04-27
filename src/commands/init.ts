@@ -11,6 +11,7 @@ import { parseAllSkills } from '../core/schema/parser.js';
 import { installFiles, detectInstalledTools } from '../core/installer/installer.js';
 import { TOOL_REGISTRY } from '../core/config.js';
 import { logger, formatJsonOutput } from '../utils/logger.js';
+import { resolveSkillsDir, resolvePackageRoot } from '../utils/paths.js';
 import type { ToolAdapter } from '../core/schema/types.js';
 import type { GeneratedFile } from '../core/schema/types.js';
 
@@ -26,28 +27,9 @@ function getAdapterById(id: string): ToolAdapter | undefined {
   return ADAPTERS.find((a) => a.id === id);
 }
 
-function resolveSkillsDir(projectRoot: string): string {
-  // Look for skills/ in project root, then fall back to package's own skills/
-  const localSkills = path.join(projectRoot, 'skills');
-  if (fs.existsSync(localSkills)) return localSkills;
-
-  // Walk up to find skills/ directory
-  let current = projectRoot;
-  for (let i = 0; i < 5; i++) {
-    const candidate = path.join(current, 'skills');
-    if (fs.existsSync(candidate)) return candidate;
-    const parent = path.dirname(current);
-    if (parent === current) break;
-    current = parent;
-  }
-
-  // Fall back to package's own skills directory
-  const packageSkills = path.resolve(process.cwd(), 'skills');
-  return packageSkills;
-}
-
 async function installMemoryTemplate(projectRoot: string, options: { dryRun?: boolean; backup?: boolean; force?: boolean }) {
-  const templateDir = path.resolve(process.cwd(), 'templates/superpowers-memory');
+  const packageRoot = resolvePackageRoot();
+  const templateDir = path.join(packageRoot, 'templates/superpowers-memory');
   if (!fs.existsSync(templateDir)) {
     logger.warn('Memory template directory not found, skipping memory installation');
     return { filesWritten: [] as string[], errors: [] as string[] };

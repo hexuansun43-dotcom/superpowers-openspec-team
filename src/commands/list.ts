@@ -6,28 +6,13 @@ import { parseAllSkills } from '../core/schema/parser.js';
 import { detectInstalledTools } from '../core/installer/installer.js';
 import { TOOL_REGISTRY } from '../core/config.js';
 import { logger, formatJsonOutput } from '../utils/logger.js';
-
-function resolveSkillsDir(projectRoot: string): string {
-  const localSkills = path.join(projectRoot, 'skills');
-  if (fs.existsSync(localSkills)) return localSkills;
-
-  let current = projectRoot;
-  for (let i = 0; i < 5; i++) {
-    const candidate = path.join(current, 'skills');
-    if (fs.existsSync(candidate)) return candidate;
-    const parent = path.dirname(current);
-    if (parent === current) break;
-    current = parent;
-  }
-
-  return path.resolve(process.cwd(), 'skills');
-}
+import { resolveSkillsDir } from '../utils/paths.js';
 
 export const listCommand = new Command('list')
   .description('List available skills and installed tools')
   .option('--json', 'Output in JSON format')
   .action(async (options: { json?: boolean }) => {
-    const projectRoot = process.cwd();
+    const projectRoot = path.resolve('.');
     const skillsDir = resolveSkillsDir(projectRoot);
 
     // Parse all skills

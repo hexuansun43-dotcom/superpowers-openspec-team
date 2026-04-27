@@ -9,6 +9,7 @@ import { OmcAdapter } from '../core/adapters/omc.js';
 import { parseAllSkills } from '../core/schema/parser.js';
 import { computeChecksum } from '../utils/checksum.js';
 import { logger, formatJsonOutput } from '../utils/logger.js';
+import { resolvePackageRoot } from '../utils/paths.js';
 import type { ToolAdapter, SkillDefinition } from '../core/schema/types.js';
 
 const ADAPTERS: ToolAdapter[] = [
@@ -36,7 +37,7 @@ export const buildCommand = new Command('build')
   .description('Build dist/ from skills/')
   .option('--json', 'Output in JSON format')
   .action(async (options: { json?: boolean }) => {
-    const projectRoot = process.cwd();
+    const projectRoot = resolvePackageRoot();
     const skillsDir = path.join(projectRoot, 'skills');
     const distDir = path.join(projectRoot, 'dist');
 

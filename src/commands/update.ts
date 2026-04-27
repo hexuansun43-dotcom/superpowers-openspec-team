@@ -9,6 +9,7 @@ import { OmcAdapter } from '../core/adapters/omc.js';
 import { parseAllSkills } from '../core/schema/parser.js';
 import { installFiles, detectInstalledTools } from '../core/installer/installer.js';
 import { logger, formatJsonOutput } from '../utils/logger.js';
+import { resolveSkillsDir } from '../utils/paths.js';
 import type { ToolAdapter } from '../core/schema/types.js';
 import type { GeneratedFile } from '../core/schema/types.js';
 
@@ -34,22 +35,6 @@ function hasGeneratedByMarker(filePath: string): boolean {
   return content.includes(GENERATED_BY_MARKER) ||
     SOT_MARKER_RGX.test(content) ||
     SOT_MARKER_JSON_RGX.test(content);
-}
-
-function resolveSkillsDir(projectRoot: string): string {
-  const localSkills = path.join(projectRoot, 'skills');
-  if (fs.existsSync(localSkills)) return localSkills;
-
-  let current = projectRoot;
-  for (let i = 0; i < 5; i++) {
-    const candidate = path.join(current, 'skills');
-    if (fs.existsSync(candidate)) return candidate;
-    const parent = path.dirname(current);
-    if (parent === current) break;
-    current = parent;
-  }
-
-  return path.resolve(process.cwd(), 'skills');
 }
 
 export const updateCommand = new Command('update')
