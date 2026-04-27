@@ -23,6 +23,11 @@ dependencies:
     - using-git-worktrees
     - test-driven-development
     - verification-before-completion
+optional_features:
+  omc_team:
+    description: Accelerate with parallel agents when oh-my-claudecode is installed
+    roles: [executor, verifier, critic]
+    parallel_phases: [implementation, verification]
 runtime_requirements:
   - openspec-cli
 outputs:

@@ -44,6 +44,30 @@ This is an explicit opt-in workflow. Do not use it by default. Only use it when 
 - Optional closeout helper output when the closeout helper was used
 - Memory validation evidence when memory updates were part of the workflow
 
+## OMC Team Acceleration (Optional)
+
+When oh-my-claudecode is installed and the task is large enough to benefit from parallel agents, you may use OMC's `/team` to accelerate execution. This is optional — sequential single-agent execution is always valid.
+
+**When to consider teams:**
+- The implementation plan has 3+ independent tasks
+- Verification can run in parallel with the next implementation task
+- The user explicitly asks for parallel or team-based execution
+
+**How to use:**
+1. After the plan is approved (step 6), use `TeamCreate` to set up a team
+2. Decompose the plan into tasks via `TaskCreate` with dependency chains
+3. Spawn teammates via `Agent` tool with `team_name` — use roles like `executor`, `verifier`, `critic`
+4. The team lead (you) orchestrates; teammates execute tasks and report via `SendMessage`
+5. After all tasks complete, use `TeamDelete` to clean up
+
+**Recommended team pattern for this workflow:**
+- **Steps 1-6 (sequential):** Clarify, design, plan — single agent, requires judgment
+- **Steps 7-8 (parallel):** Implementation tasks — multiple `executor` agents on independent tasks
+- **Step 9 (parallel):** `verifier` agent runs verification while `executor` works on the next task
+- **Steps 10-14 (sequential):** Memory closeout — single agent, requires full context
+
+If OMC is not installed or the task is small, proceed sequentially as described above.
+
 ## Guardrails
 
 - Do not write production code before design approval

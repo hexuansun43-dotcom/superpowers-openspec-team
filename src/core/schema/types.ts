@@ -49,6 +49,16 @@ export const WorkflowMetaSchema = z.object({
     })
     .optional(),
   outputs: z.array(z.string()).optional(),
+  optional_features: z
+    .record(
+      z.string(),
+      z.object({
+        description: z.string().optional(),
+        roles: z.array(z.string()).optional(),
+        parallel_phases: z.array(z.string()).optional(),
+      })
+    )
+    .optional(),
   security: z
     .object({
       writable_paths: z.array(z.string()).optional(),

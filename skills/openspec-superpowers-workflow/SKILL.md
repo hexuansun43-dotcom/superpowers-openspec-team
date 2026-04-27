@@ -38,6 +38,29 @@ If `.superpowers-memory/` exists in the repository, treat it as shared project m
 - Archived OpenSpec change when archive flow is part of the project workflow
 - Updated Superpowers memory when `.superpowers-memory/` is present
 
+## OMC Team Acceleration (Optional)
+
+When oh-my-claudecode is installed and the task is large enough to benefit from parallel agents, you may use OMC's `/team` to accelerate execution. This is optional — sequential single-agent execution is always valid.
+
+**When to consider teams:**
+- The feature has 3+ independent implementation tasks after planning
+- Verification and implementation can run in parallel
+- The user explicitly asks for parallel or team-based execution
+
+**How to use:**
+1. After design approval (step 1), use `TeamCreate` to set up a team
+2. Decompose the implementation plan into tasks via `TaskCreate` with dependency chains
+3. Spawn teammates via `Agent` tool with `team_name` — use roles like `executor`, `verifier`, `critic`
+4. The team lead (you) orchestrates; teammates execute tasks and report via `SendMessage`
+5. After all tasks complete, use `TeamDelete` to clean up
+
+**Recommended team pattern for this workflow:**
+- **Phase 1 (sequential):** Design + OpenSpec artifacts — single agent, requires judgment
+- **Phase 2 (parallel):** Implementation tasks — multiple `executor` agents working independent tasks
+- **Phase 3 (parallel):** Verification — `verifier` agent checks spec compliance while `executor` fixes issues
+
+If OMC is not installed or the task is small, proceed sequentially as described above.
+
 ## Guardrails
 
 - Do not start implementation before the design is approved
