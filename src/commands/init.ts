@@ -1,7 +1,8 @@
 import { Command } from 'commander';
 import path from 'path';
 import fs from 'fs';
-import inquirer from 'inquirer';
+import chalk from 'chalk';
+import ora from 'ora';
 import { ClaudeCodeAdapter } from '../core/adapters/claude-code.js';
 import { CursorAdapter } from '../core/adapters/cursor.js';
 import { CodexAdapter } from '../core/adapters/codex.js';
@@ -11,8 +12,8 @@ import { installFiles, detectInstalledTools } from '../core/installer/installer.
 import { TOOL_REGISTRY } from '../core/config.js';
 import { logger, formatJsonOutput } from '../utils/logger.js';
 import { resolveSkillsDir, resolvePackageRoot } from '../utils/paths.js';
-import type { ToolAdapter } from '../core/schema/types.js';
-import type { GeneratedFile } from '../core/schema/types.js';
+import { interactiveToolSelect } from '../utils/interactive.js';
+import type { ToolAdapter, GeneratedFile } from '../core/schema/types.js';
 
 const ADAPTERS: ToolAdapter[] = [
   new ClaudeCodeAdapter(),
@@ -43,7 +44,7 @@ async function installMemoryTemplate(projectRoot: string, options: { dryRun?: bo
       path: targetRelPath,
       content,
       overwrite: true,
-      generatedBy: 'sot@2.0.0',
+      generatedBy: 'sot@2.0.1',
     });
   }
 
@@ -64,10 +65,37 @@ function walkDir(dir: string): string[] {
   return results;
 }
 
+function showWelcome(skillsCount: number) {
+  console.log('');
+  console.log(chalk.cyan.bold('  Welcome to Superpowers-OpenSpec'));
+  console.log(chalk.dim('  A CLI-driven workflow skills framework for AI coding agents'));
+  console.log('');
+  console.log(chalk.white('  This setup will configure:'));
+  console.log(chalk.dim(`    • ${skillsCount} workflow skill(s) for your AI tools`));
+  console.log(chalk.dim('    • Tool-specific command files and skill directories'));
+  console.log(chalk.dim('    • Optional .superpowers-memory/ for cross-session memory'));
+  console.log('');
+}
+
+function showQuickStart(selectedToolIds: string[]) {
+  console.log('');
+  console.log(chalk.cyan.bold('  Quick start after setup:'));
+  console.log('');
+  console.log(chalk.dim('    sot list              # List available skills'));
+  console.log(chalk.dim('    sot update             # Update installed skills'));
+  console.log(chalk.dim('    sot validate           # Validate installation'));
+  console.log('');
+  if (selectedToolIds.includes('claude-code')) {
+    console.log(chalk.dim('    /superpowers:superpowers-openspec-execution-workflow'));
+    console.log(chalk.dim('                          # Start execution workflow in Claude Code'));
+  }
+  console.log('');
+}
+
 export const initCommand = new Command('init')
   .description('Initialize skills in a project')
   .argument('[path]', 'Project path', '.')
-  .option('--tool <tools>', 'Target tools (comma-separated)')
+  .option('--tool <tools>', 'Target tools (comma-separated, skip interactive)')
   .option('--dry-run', 'Preview changes without writing')
   .option('--force', 'Skip confirmation prompts')
   .option('--backup', 'Backup existing files before overwriting')
@@ -91,7 +119,12 @@ export const initCommand = new Command('init')
       process.exit(1);
     }
 
-    logger.info(`Found ${skills.length} skill(s) in ${skillsDir}`);
+    // Skip interactive UI if --json, --tool, or --force
+    const isInteractive = !options.json && !options.tool && !options.force;
+
+    if (isInteractive) {
+      showWelcome(skills.length);
+    }
 
     // Detect or select tools
     let selectedToolIds: string[];
@@ -99,42 +132,29 @@ export const initCommand = new Command('init')
       selectedToolIds = options.tool.split(',').map((t) => t.trim()).filter(Boolean);
     } else {
       const detected = detectInstalledTools(projectRoot);
-      if (detected.length > 0) {
-        logger.info(`Detected tools: ${detected.join(', ')}`);
-      }
 
-      if (options.force || detected.length === 0) {
-        // If no tools detected or --force, prompt for selection
-        const available = Object.keys(TOOL_REGISTRY);
-        if (options.force) {
-          // Auto-select all detected when --force is used
-          selectedToolIds = detected.length > 0 ? detected : available;
-        } else {
-          const answers = await inquirer.prompt([{
-            type: 'checkbox',
-            name: 'tools',
-            message: 'Select target tools:',
-            choices: available.map((id) => ({
-              name: `${TOOL_REGISTRY[id].name} (${id})`,
-              value: id,
-              checked: detected.includes(id),
-            })),
-          }]);
-          selectedToolIds = answers.tools;
+      if (options.force) {
+        selectedToolIds = detected.length > 0 ? detected : Object.keys(TOOL_REGISTRY);
+      } else if (isInteractive) {
+        // Interactive tool selection with search and pre-selection
+        selectedToolIds = await interactiveToolSelect(detected);
+        if (selectedToolIds.length === 0) {
+          logger.error('No tools selected');
+          process.exit(1);
         }
       } else {
-        selectedToolIds = detected;
+        // --json mode without --tool: auto-detect
+        selectedToolIds = detected.length > 0 ? detected : Object.keys(TOOL_REGISTRY);
       }
     }
 
-    if (selectedToolIds.length === 0) {
-      logger.error('No tools selected');
-      process.exit(1);
+    if (!isInteractive) {
+      logger.info(`Found ${skills.length} skill(s)`);
+      logger.info(`Target tools: ${selectedToolIds.join(', ')}`);
     }
 
-    logger.info(`Target tools: ${selectedToolIds.join(', ')}`);
-
     // Generate files for each selected tool
+    const spinner = isInteractive ? ora('Generating skill files...').start() : null;
     const allFiles: GeneratedFile[] = [];
     for (const toolId of selectedToolIds) {
       const adapter = getAdapterById(toolId);
@@ -153,6 +173,7 @@ export const initCommand = new Command('init')
     // Install memory template if requested
     let memoryResult = { filesWritten: [] as string[], errors: [] as string[] };
     if (options.withMemory) {
+      if (spinner) spinner.text = 'Installing memory template...';
       memoryResult = await installMemoryTemplate(projectRoot, {
         dryRun: options.dryRun,
         backup: options.backup,
@@ -161,11 +182,20 @@ export const initCommand = new Command('init')
     }
 
     // Install all generated files
+    if (spinner) spinner.text = 'Installing files...';
     const result = await installFiles(allFiles, projectRoot, {
       dryRun: options.dryRun,
       backup: options.backup,
       force: options.force,
     });
+
+    if (spinner) {
+      if (result.success) {
+        spinner.succeed(chalk.green(`Installed ${result.filesWritten.length} file(s) for ${selectedToolIds.length} tool(s)`));
+      } else {
+        spinner.fail('Installation completed with errors');
+      }
+    }
 
     if (options.json) {
       console.log(formatJsonOutput({
@@ -181,20 +211,20 @@ export const initCommand = new Command('init')
       return;
     }
 
-    if (result.success) {
-      logger.success(`Initialized ${result.filesWritten.length} file(s) for ${selectedToolIds.length} tool(s)`);
-    } else {
-      logger.error(`Initialization completed with ${result.errors.length} error(s)`);
-      for (const err of result.errors) {
-        logger.error(`  ${err}`);
-      }
+    // Show errors/warnings
+    for (const err of result.errors) {
+      logger.error(`  ${err}`);
     }
-
     for (const w of result.warnings) {
       logger.warn(`  ${w}`);
     }
 
-    if (options.dryRun) {
-      logger.info('(dry-run: no files were written)');
+    // Interactive: show quick start guide
+    if (isInteractive && result.success) {
+      showQuickStart(selectedToolIds);
+    }
+
+    if (!result.success) {
+      process.exit(1);
     }
   });
