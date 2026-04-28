@@ -5,7 +5,6 @@ import chalk from 'chalk';
 import { detectOmc } from '../core/omc-detector.js';
 import { VERSION } from '../core/config.js';
 import { logger, formatJsonOutput } from '../utils/logger.js';
-import { resolvePackageRoot } from '../utils/paths.js';
 
 interface DoctorCheck {
   name: string;
@@ -104,7 +103,7 @@ export const doctorCommand = new Command('doctor')
   .action((options: { json?: boolean }, cmd: Command) => {
     // Commander may consume --json at program level; check both
     const useJson = options.json || cmd.parent?.opts()?.json;
-    const projectRoot = resolvePackageRoot();
+    const projectRoot = path.resolve('.');
     const checks = runChecks(projectRoot);
     const omcDetected = detectOmc(projectRoot).available;
 
