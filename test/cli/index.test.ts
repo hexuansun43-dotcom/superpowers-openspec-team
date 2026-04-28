@@ -7,7 +7,7 @@ const cliPath = path.resolve(__dirname, '../../bin/sot.js');
 describe('CLI entry', () => {
   it('should show version', () => {
     const output = execSync(`node ${cliPath} --version`, { encoding: 'utf-8' });
-    expect(output.trim()).toBe('2.5.4');
+    expect(output.trim()).toBe('2.5.5');
   });
 
   it('should show help', () => {

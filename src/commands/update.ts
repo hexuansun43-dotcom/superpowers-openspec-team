@@ -5,6 +5,8 @@ import { ClaudeCodeAdapter } from '../core/adapters/claude-code.js';
 import { CursorAdapter } from '../core/adapters/cursor.js';
 import { CodexAdapter } from '../core/adapters/codex.js';
 import { GeminiAdapter } from '../core/adapters/gemini.js';
+import { OmcAdapter } from '../core/adapters/omc.js';
+import { detectOmc } from '../core/omc-detector.js';
 import { parseAllSkills } from '../core/schema/parser.js';
 import { installFiles, detectInstalledTools } from '../core/installer/installer.js';
 import { logger, formatJsonOutput } from '../utils/logger.js';
@@ -17,6 +19,7 @@ const ADAPTERS: ToolAdapter[] = [
   new CursorAdapter(),
   new CodexAdapter(),
   new GeminiAdapter(),
+  new OmcAdapter(),
 ];
 
 function getAdapterById(id: string): ToolAdapter | undefined {
@@ -67,6 +70,13 @@ export const updateCommand = new Command('update')
     }
 
     logger.info(`Detected installed tools: ${detectedTools.join(', ')}`);
+
+    // OMC auto-detection: add omc tool when OMC is installed
+    const omcResult = detectOmc(projectRoot);
+    if (omcResult.available && !detectedTools.includes('omc')) {
+      detectedTools.push('omc');
+      logger.info('OMC detected — skills will also be updated in .omc/skills/');
+    }
 
     // Generate files for detected tools
     const allFiles: GeneratedFile[] = [];
