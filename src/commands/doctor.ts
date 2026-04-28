@@ -28,15 +28,15 @@ function checkSkillSync(projectRoot: string): DoctorCheck {
     return { name: 'Skill Sync', status: 'warn', message: 'No skill directories found — run sot init' };
   }
   if (fs.existsSync(omcSkillsDir) && fs.existsSync(claudeSkillsDir)) {
-    const omcCount = fs.readdirSync(omcSkillsDir).length;
-    const claudeCount = fs.readdirSync(claudeSkillsDir).length;
+    const omcCount = fs.readdirSync(omcSkillsDir, { withFileTypes: true }).filter(d => d.isDirectory()).length;
+    const claudeCount = fs.readdirSync(claudeSkillsDir, { withFileTypes: true }).filter(d => d.isDirectory()).length;
     if (omcCount !== claudeCount) {
       return { name: 'Skill Sync', status: 'warn', message: `OMC skills (${omcCount}) vs Claude skills (${claudeCount}) — consider sot update` };
     }
     return { name: 'Skill Sync', status: 'ok', message: `Skill directories in sync (${omcCount} skills)` };
   }
   const dir = fs.existsSync(omcSkillsDir) ? omcSkillsDir : claudeSkillsDir;
-  const count = fs.readdirSync(dir).length;
+  const count = fs.readdirSync(dir, { withFileTypes: true }).filter(d => d.isDirectory()).length;
   return { name: 'Skill Sync', status: 'ok', message: `${count} skill(s) installed` };
 }
 

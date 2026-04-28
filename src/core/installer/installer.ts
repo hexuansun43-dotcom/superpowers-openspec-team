@@ -58,7 +58,8 @@ export async function installFiles(
     }
 
     if (!options.dryRun) {
-      const contentWithChecksum = file.content + `\n<!-- checksum: ${computeChecksum(file.content)} -->`;
+      const isJson = targetPath.endsWith('.json');
+      const contentWithChecksum = isJson ? file.content : file.content + `\n<!-- checksum: ${computeChecksum(file.content)} -->`;
       fs.writeFileSync(targetPath, contentWithChecksum);
     }
     result.filesWritten.push(file.path);

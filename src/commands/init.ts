@@ -12,6 +12,7 @@ import { parseAllSkills } from '../core/schema/parser.js';
 import { installFiles, detectInstalledTools } from '../core/installer/installer.js';
 import { TOOL_REGISTRY } from '../core/config.js';
 import { detectOmc } from '../core/omc-detector.js';
+import { injectSotBlock } from '../core/claude-md-injector.js';
 import { logger, formatJsonOutput } from '../utils/logger.js';
 import { resolveSkillsDir, resolvePackageRoot } from '../utils/paths.js';
 import { interactiveToolSelect } from '../utils/interactive.js';
@@ -198,6 +199,18 @@ export const initCommand = new Command('init')
       backup: options.backup,
       force: options.force,
     });
+
+    // Inject SOT block into CLAUDE.md when OMC is detected
+    if (omcResult.available && !options.dryRun) {
+      const claudeMdPath = path.join(projectRoot, 'CLAUDE.md');
+      let claudeMdContent = '';
+      if (fs.existsSync(claudeMdPath)) {
+        claudeMdContent = fs.readFileSync(claudeMdPath, 'utf-8');
+      }
+      const updated = injectSotBlock(claudeMdContent, skills);
+      fs.writeFileSync(claudeMdPath, updated);
+      logger.info('Injected SOT skill reference into CLAUDE.md');
+    }
 
     if (spinner) {
       if (result.success) {
