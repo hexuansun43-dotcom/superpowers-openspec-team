@@ -21,6 +21,19 @@ function checkOmcInstallation(projectRoot: string): DoctorCheck {
   return { name: 'OMC Installation', status: 'ok', message: `OMC detected via ${detail}` };
 }
 
+function countSotSkills(dir: string): number {
+  if (!fs.existsSync(dir)) return 0;
+  return fs.readdirSync(dir, { withFileTypes: true })
+    .filter(d => d.isDirectory())
+    .filter(d => {
+      const skillMd = path.join(dir, d.name, 'SKILL.md');
+      if (!fs.existsSync(skillMd)) return false;
+      const content = fs.readFileSync(skillMd, 'utf-8');
+      return content.includes('generatedBy: sot@');
+    })
+    .length;
+}
+
 function checkSkillSync(projectRoot: string): DoctorCheck {
   const omcSkillsDir = path.join(projectRoot, '.omc/skills');
   const claudeSkillsDir = path.join(projectRoot, '.claude/skills');
@@ -28,15 +41,15 @@ function checkSkillSync(projectRoot: string): DoctorCheck {
     return { name: 'Skill Sync', status: 'warn', message: 'No skill directories found — run sot init' };
   }
   if (fs.existsSync(omcSkillsDir) && fs.existsSync(claudeSkillsDir)) {
-    const omcCount = fs.readdirSync(omcSkillsDir, { withFileTypes: true }).filter(d => d.isDirectory()).length;
-    const claudeCount = fs.readdirSync(claudeSkillsDir, { withFileTypes: true }).filter(d => d.isDirectory()).length;
+    const omcCount = countSotSkills(omcSkillsDir);
+    const claudeCount = countSotSkills(claudeSkillsDir);
     if (omcCount !== claudeCount) {
       return { name: 'Skill Sync', status: 'warn', message: `OMC skills (${omcCount}) vs Claude skills (${claudeCount}) — consider sot update` };
     }
     return { name: 'Skill Sync', status: 'ok', message: `Skill directories in sync (${omcCount} skills)` };
   }
   const dir = fs.existsSync(omcSkillsDir) ? omcSkillsDir : claudeSkillsDir;
-  const count = fs.readdirSync(dir, { withFileTypes: true }).filter(d => d.isDirectory()).length;
+  const count = countSotSkills(dir);
   return { name: 'Skill Sync', status: 'ok', message: `${count} skill(s) installed` };
 }
 
