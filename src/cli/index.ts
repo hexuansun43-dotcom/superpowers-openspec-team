@@ -9,7 +9,7 @@ import { configCommand } from '../commands/config.js';
 import { serveCommand } from '../commands/serve.js';
 import { doctorCommand } from '../commands/doctor.js';
 
-const VERSION = '2.5.0';
+const VERSION = '2.5.1';
 
 const program = new Command();
 
