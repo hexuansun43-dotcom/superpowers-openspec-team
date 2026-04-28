@@ -69,7 +69,7 @@ The `sot` CLI (v2.0.0) is the primary way to install, build, validate, and manag
 
 ### sot init
 
-Initialize skills into a project for one or more AI tools.
+Initialize skills into a project for one or more AI tools. When OMC (oh-my-claudecode) is detected, skills are also installed to `.omc/skills/`, a SOT reference block is injected into `CLAUDE.md`, and the `sot` MCP server is registered in `~/.claude.json`.
 
 ```bash
 sot init /path/to/project                 # auto-detect tools
@@ -107,6 +107,30 @@ Validate installation integrity. Checks generatedBy markers, checksums, and memo
 ```bash
 sot validate /path/to/project
 sot validate . --json
+```
+
+### sot doctor
+
+Check OMC integration health and installation status. Runs five diagnostics:
+
+1. **OMC Installation** — detects project-local `.omc/` or global OMC install
+2. **Skill Sync** — compares sot-generated skill count across `.claude/skills/` and `.omc/skills/` (ignores third-party skills)
+3. **CLAUDE.md SOT Block** — verifies `<!-- SOT:START -->` reference block is present
+4. **Registry Version** — checks `.omc/skills/sot-registry.json` matches CLI version
+5. **MCP Registration** — checks `sot` MCP server is registered in `~/.claude.json`
+
+```bash
+sot doctor              # text output with colored icons
+sot doctor --json       # machine-readable JSON
+```
+
+### sot serve
+
+Start an MCP server (stdio transport) exposing skill metadata and project memory queries. Complements OMC's built-in tools when both are available.
+
+```bash
+sot serve               # start MCP server for current directory
+sot serve --project-root /path/to/project
 ```
 
 ### sot list
@@ -147,7 +171,7 @@ All commands support `--json` for machine-readable output and `--debug` for verb
 
 ## Supported Tools
 
-Four adapters are included:
+Five adapters are included:
 
 | Adapter | ID | Writes to |
 |---------|----|-----------|
@@ -155,6 +179,7 @@ Four adapters are included:
 | Cursor | `cursor` | `.cursor/rules/`, `AGENTS.md` |
 | Codex | `codex` | Codex home skills directory |
 | Gemini CLI | `gemini` | `GEMINI.md`, `gemini-extension.json` |
+| OMC | `omc` | `.omc/skills/` (auto-detected, enables OMC skill discovery) |
 
 ## Project Memory (.superpowers-memory/)
 
