@@ -1,6 +1,7 @@
 import { Command } from 'commander';
 import path from 'path';
 import fs from 'fs';
+import os from 'os';
 import chalk from 'chalk';
 import ora from 'ora';
 import { ClaudeCodeAdapter } from '../core/adapters/claude-code.js';
@@ -212,6 +213,14 @@ export const initCommand = new Command('init')
       logger.info('Injected SOT skill reference into CLAUDE.md');
     }
 
+    // Register sot MCP server in ~/.claude.json
+    if (!options.dryRun) {
+      const registered = registerMcpServer();
+      if (registered) {
+        logger.info('Registered sot MCP server in ~/.claude.json');
+      }
+    }
+
     if (spinner) {
       if (result.success) {
         spinner.succeed(chalk.green(`Installed ${result.filesWritten.length} file(s) for ${selectedToolIds.length} tool(s)`));
@@ -251,3 +260,59 @@ export const initCommand = new Command('init')
       process.exit(1);
     }
   });
+
+/**
+ * Register sot MCP server in ~/.claude.json.
+ * Adds a "sot" entry under mcpServers pointing to `sot serve`.
+ * Idempotent — skips if already registered.
+ */
+function registerMcpServer(): boolean {
+  const homeDir = process.env.HOME || process.env.USERPROFILE || os.homedir();
+  const claudeJsonPath = path.join(homeDir, '.claude.json');
+
+  let config: Record<string, unknown> = {};
+  if (fs.existsSync(claudeJsonPath)) {
+    try {
+      config = JSON.parse(fs.readFileSync(claudeJsonPath, 'utf-8'));
+    } catch {
+      logger.warn('~/.claude.json is invalid JSON, skipping MCP registration');
+      return false;
+    }
+  }
+
+  const servers = (config.mcpServers || {}) as Record<string, unknown>;
+  if (servers.sot) {
+    return false; // already registered
+  }
+
+  // Resolve sot CLI path: prefer global install, fallback to npx
+  const sotPath = resolveSotBinPath();
+
+  servers.sot = {
+    command: sotPath,
+    args: ['serve'],
+  };
+  config.mcpServers = servers;
+
+  try {
+    fs.writeFileSync(claudeJsonPath, JSON.stringify(config, null, 2));
+    return true;
+  } catch {
+    logger.warn('Failed to write ~/.claude.json, skipping MCP registration');
+    return false;
+  }
+}
+
+/**
+ * Resolve the absolute path to the `sot` binary.
+ */
+function resolveSotBinPath(): string {
+  // Try to find globally installed sot
+  try {
+    const { execSync } = require('child_process') as typeof import('child_process');
+    const result = execSync('which sot 2>/dev/null || where sot 2>/dev/null', { encoding: 'utf-8' }).trim();
+    if (result) return result.split('\n')[0].trim();
+  } catch { /* ignore */ }
+  // Fallback to npx
+  return 'npx';
+}
