@@ -34,7 +34,7 @@ export class ClaudeCodeAdapter extends BaseAdapter {
   generateConfig(skills: SkillDefinition[], targetRoot: string): GeneratedFile[] {
     const snippets = skills.map((s) => `- \`${s.name}\`: ${s.description}`).join('\n');
     const content = this.buildClaudeMdSnippet(snippets, skills);
-    return [this.createGeneratedFile('CLAUDE.md.sot-snippet', content)];
+    return [this.createGeneratedFile('CLAUDE.md.sot-snippet', content, true)];
   }
 
   private buildCommandContent(skill: SkillDefinition): string {

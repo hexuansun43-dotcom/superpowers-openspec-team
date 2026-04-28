@@ -33,14 +33,17 @@ export async function installFiles(
     }
 
     if (fs.existsSync(targetPath)) {
-      const existing = fs.readFileSync(targetPath, 'utf-8');
-      const hasMarker = existing.includes(GENERATED_BY_MARKER) ||
-                        SOT_MARKER_RGX.test(existing) ||
-                        SOT_MARKER_JSON_RGX.test(existing);
+      // Config/metadata files (overwrite=true) always update regardless of marker
+      if (!file.overwrite) {
+        const existing = fs.readFileSync(targetPath, 'utf-8');
+        const hasMarker = existing.includes(GENERATED_BY_MARKER) ||
+                          SOT_MARKER_RGX.test(existing) ||
+                          SOT_MARKER_JSON_RGX.test(existing);
 
-      if (!hasMarker && !options.force) {
-        result.warnings.push(`${file.path}: Skipped (no generator marker, use --force to overwrite)`);
-        continue;
+        if (!hasMarker && !options.force) {
+          result.warnings.push(`${file.path}: Skipped (no generator marker, use --force to overwrite)`);
+          continue;
+        }
       }
 
       if (options.backup) {

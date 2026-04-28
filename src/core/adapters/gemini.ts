@@ -18,7 +18,7 @@ export class GeminiAdapter extends BaseAdapter {
 
   generateConfig(skills: SkillDefinition[], _targetRoot: string): GeneratedFile[] {
     const firstHint = skills[0]?.frontmatter.model_hint || skills[0]?.metadata?.model_hint;
-    return [this.createGeneratedFile('gemini-extension.json', this.buildExtensionJson(firstHint))];
+    return [this.createGeneratedFile('gemini-extension.json', this.buildExtensionJson(firstHint), true)];
   }
 
   private buildGeminiMd(skill: SkillDefinition): string {

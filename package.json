@@ -1,6 +1,6 @@
 {
   "name": "superpowers-openspec-team",
-  "version": "2.5.6",
+  "version": "2.5.7",
   "description": "AI coding agent workflow skills with CLI-driven multi-tool adaptation",
   "type": "module",
   "bin": {

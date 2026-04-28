@@ -23,7 +23,7 @@ export class CursorAdapter extends BaseAdapter {
   generateConfig(skills: SkillDefinition[], targetRoot: string): GeneratedFile[] {
     const snippets = skills.map((s) => `@.cursor/skills/${s.name}/SKILL.md`).join('\n');
     const content = this.buildAgentsMdSnippet(snippets);
-    return [this.createGeneratedFile('AGENTS.md.sot-snippet', content)];
+    return [this.createGeneratedFile('AGENTS.md.sot-snippet', content, true)];
   }
 
   private buildRuleContent(skill: SkillDefinition): string {

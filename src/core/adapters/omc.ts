@@ -37,6 +37,6 @@ export class OmcAdapter extends BaseAdapter {
       })),
     };
     const registryPath = path.join(this.skillsDir, 'sot-registry.json');
-    return [this.createGeneratedFile(registryPath, JSON.stringify(registry, null, 2))];
+    return [this.createGeneratedFile(registryPath, JSON.stringify(registry, null, 2), true)];
   }
 }

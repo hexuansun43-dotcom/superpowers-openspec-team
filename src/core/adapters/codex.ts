@@ -29,8 +29,8 @@ export class CodexAdapter extends BaseAdapter {
     }));
     const manifestContent = JSON.stringify(manifest, null, 2);
     return [
-      this.createGeneratedFile('AGENTS.md.sot-snippet', content),
-      this.createGeneratedFile('manifest.json', manifestContent),
+      this.createGeneratedFile('AGENTS.md.sot-snippet', content, true),
+      this.createGeneratedFile('manifest.json', manifestContent, true),
     ];
   }
 

@@ -98,6 +98,7 @@ export const updateCommand = new Command('update')
     // Filter: only update files that have the generatedBy marker
     // (files without the marker were manually edited and should not be overwritten)
     const updatableFiles = allFiles.filter((file) => {
+      if (file.overwrite) return true; // Config/metadata files always update
       const targetPath = path.join(projectRoot, file.path);
       if (!fs.existsSync(targetPath)) return true; // New file, safe to create
       return hasGeneratedByMarker(targetPath);

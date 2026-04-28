@@ -35,7 +35,7 @@ export abstract class BaseAdapter implements ToolAdapter {
   protected createGeneratedFile(
     relativePath: string,
     content: string,
-    overwrite: boolean = true
+    overwrite: boolean = false
   ): GeneratedFile {
     return {
       path: relativePath.replace(/\\/g, '/'),

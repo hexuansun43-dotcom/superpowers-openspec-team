@@ -46,15 +46,26 @@ describe('installFiles', () => {
     expect(fs.existsSync(filePath + '.backup')).toBe(true);
   });
 
-  it('should skip files without marker when not forced', async () => {
+  it('should skip files without marker when not forced and overwrite=false', async () => {
     const filePath = path.join(tmpDir, 'existing.md');
     fs.writeFileSync(filePath, 'no marker');
     const files: GeneratedFile[] = [
-      { path: 'existing.md', content: 'new', overwrite: true, generatedBy: 'sot@2.0.0' },
+      { path: 'existing.md', content: 'new', overwrite: false, generatedBy: 'sot@2.0.0' },
     ];
     const result = await installFiles(files, tmpDir, {});
     expect(result.filesWritten).not.toContain('existing.md');
     expect(result.warnings.length).toBeGreaterThan(0);
+  });
+
+  it('should overwrite files without marker when overwrite=true', async () => {
+    const filePath = path.join(tmpDir, 'config.json');
+    fs.writeFileSync(filePath, 'no marker');
+    const files: GeneratedFile[] = [
+      { path: 'config.json', content: '{"updated":true}', overwrite: true, generatedBy: 'sot@2.0.0' },
+    ];
+    const result = await installFiles(files, tmpDir, {});
+    expect(result.filesWritten).toContain('config.json');
+    expect(fs.readFileSync(filePath, 'utf-8')).toContain('{"updated":true}');
   });
 
   it('should overwrite files without marker when forced', async () => {
