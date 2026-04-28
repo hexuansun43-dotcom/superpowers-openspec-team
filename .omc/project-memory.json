@@ -91,14 +91,14 @@
   "hotPaths": [
     {
       "path": "",
-      "accessCount": 31,
-      "lastAccessed": 1777282502661,
+      "accessCount": 62,
+      "lastAccessed": 1777291878615,
       "type": "directory"
     },
     {
       "path": "README.md",
-      "accessCount": 26,
-      "lastAccessed": 1777282510274,
+      "accessCount": 32,
+      "lastAccessed": 1777341477486,
       "type": "file"
     },
     {
@@ -108,15 +108,63 @@
       "type": "file"
     },
     {
+      "path": "CHANGELOG.md",
+      "accessCount": 16,
+      "lastAccessed": 1777292012124,
+      "type": "file"
+    },
+    {
+      "path": "skills\\openspec-superpowers-workflow\\workflow.yaml",
+      "accessCount": 14,
+      "lastAccessed": 1777289262661,
+      "type": "file"
+    },
+    {
+      "path": "skills\\superpowers-feature-workflow\\workflow.yaml",
+      "accessCount": 14,
+      "lastAccessed": 1777289262722,
+      "type": "file"
+    },
+    {
       "path": "skills\\openspec-superpowers-workflow\\SKILL.md",
-      "accessCount": 7,
-      "lastAccessed": 1777282691545,
+      "accessCount": 12,
+      "lastAccessed": 1777288447906,
+      "type": "file"
+    },
+    {
+      "path": "skills\\superpowers-openspec-execution-workflow\\workflow.yaml",
+      "accessCount": 12,
+      "lastAccessed": 1777289262597,
       "type": "file"
     },
     {
       "path": "skills\\superpowers-feature-workflow\\SKILL.md",
+      "accessCount": 10,
+      "lastAccessed": 1777288446049,
+      "type": "file"
+    },
+    {
+      "path": "skills\\superpowers-openspec-execution-workflow\\SKILL.md",
+      "accessCount": 9,
+      "lastAccessed": 1777288447299,
+      "type": "file"
+    },
+    {
+      "path": "skills\\superpowers-learning-workflow\\workflow.yaml",
+      "accessCount": 9,
+      "lastAccessed": 1777288770439,
+      "type": "file"
+    },
+    {
+      "path": "skills\\openspec-feature-workflow\\workflow.yaml",
+      "accessCount": 9,
+      "lastAccessed": 1777288771018,
+      "type": "file"
+    },
+    {
+      "path": "skills\\superpowers-learning-workflow\\SKILL.md",
       "accessCount": 7,
-      "lastAccessed": 1777282715711,
+      "lastAccessed": 1777288446667,
       "type": "file"
     },
     {
@@ -138,22 +186,16 @@
       "type": "file"
     },
     {
-      "path": "skills\\superpowers-openspec-execution-workflow\\SKILL.md",
+      "path": "skills\\openspec-feature-workflow\\SKILL.md",
       "accessCount": 6,
-      "lastAccessed": 1777282703705,
+      "lastAccessed": 1777288448527,
       "type": "file"
     },
     {
-      "path": "skills\\openspec-superpowers-workflow\\workflow.yaml",
+      "path": "skills",
       "accessCount": 6,
-      "lastAccessed": 1777282741683,
-      "type": "file"
-    },
-    {
-      "path": "skills\\superpowers-feature-workflow\\workflow.yaml",
-      "accessCount": 6,
-      "lastAccessed": 1777282742927,
-      "type": "file"
+      "lastAccessed": 1777289579597,
+      "type": "directory"
     },
     {
       "path": "scripts\\install-cursor.sh",
@@ -162,27 +204,9 @@
       "type": "file"
     },
     {
-      "path": "skills\\superpowers-openspec-execution-workflow\\workflow.yaml",
-      "accessCount": 5,
-      "lastAccessed": 1777282742311,
-      "type": "file"
-    },
-    {
       "path": "templates\\superpowers-memory\\PROJECT_CONTEXT.md",
       "accessCount": 4,
       "lastAccessed": 1777272022500,
-      "type": "file"
-    },
-    {
-      "path": "skills\\superpowers-learning-workflow\\SKILL.md",
-      "accessCount": 4,
-      "lastAccessed": 1777282483385,
-      "type": "file"
-    },
-    {
-      "path": "skills\\openspec-feature-workflow\\SKILL.md",
-      "accessCount": 4,
-      "lastAccessed": 1777282483457,
       "type": "file"
     },
     {
@@ -207,18 +231,6 @@
       "path": "templates\\superpowers-memory\\CURRENT_STATE.md",
       "accessCount": 3,
       "lastAccessed": 1777271993908,
-      "type": "file"
-    },
-    {
-      "path": "skills\\openspec-feature-workflow\\workflow.yaml",
-      "accessCount": 3,
-      "lastAccessed": 1777282491525,
-      "type": "file"
-    },
-    {
-      "path": "skills\\superpowers-learning-workflow\\workflow.yaml",
-      "accessCount": 3,
-      "lastAccessed": 1777282491587,
       "type": "file"
     },
     {
@@ -264,12 +276,6 @@
       "type": "file"
     },
     {
-      "path": "skills",
-      "accessCount": 2,
-      "lastAccessed": 1777282491504,
-      "type": "directory"
-    },
-    {
       "path": "skills\\openspec-feature-workflow\\agents\\openai.yaml",
       "accessCount": 2,
       "lastAccessed": 1777282502388,
@@ -301,20 +307,14 @@
     },
     {
       "path": "LICENSE",
-      "accessCount": 1,
-      "lastAccessed": 1777256718795,
+      "accessCount": 2,
+      "lastAccessed": 1777286949788,
       "type": "file"
     },
     {
       "path": "MEMORY.md",
       "accessCount": 1,
       "lastAccessed": 1777256718993,
-      "type": "file"
-    },
-    {
-      "path": "CHANGELOG.md",
-      "accessCount": 1,
-      "lastAccessed": 1777256719071,
       "type": "file"
     },
     {

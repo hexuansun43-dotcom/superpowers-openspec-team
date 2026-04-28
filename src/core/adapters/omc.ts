@@ -30,6 +30,7 @@ export class OmcAdapter extends BaseAdapter {
     const registry = {
       source: 'sot',
       version: VERSION,
+      generatedBy: `sot@${VERSION}`,
       skills: skills.map((s) => ({
         name: s.name,
         description: s.description,
